@@ -1,0 +1,255 @@
+[
+    {
+        "node_1": "Arrêté du ministre délégué",
+        "node_2": "Dématérialisation des procédures",
+        "edge": "est relatif à"
+    },
+    {
+        "node_1": "Loi n° 112-13",
+        "node_2": "Nantissement des marchés publics",
+        "edge": "porte sur"
+    },
+    {
+        "node_1": "Loi n° 43-20",
+        "node_2": "Services de confiance pour les transactions électroniques",
+        "edge": "réglemente"
+    },
+    {
+        "node_1": "Loi n° 53-05",
+        "node_2": "Échange électronique des données juridiques",
+        "edge": "concerne"
+    },
+    {
+        "node_1": "Loi n° 55-19",
+        "node_2": "Simplification des procédures et formalités administratives",
+        "edge": "vise à"
+    },
+    {
+        "node_1": "Loi n° 69-00",
+        "node_2": "Contrôle financier de l’Etat sur les entreprises publiques",
+        "edge": "régit"
+    },
+    {
+        "node_1": "Dahir n° 1-56-211",
+        "node_2": "Garanties pécuniaires des soumissionnaires et adjudicataires de marchés publics",
+        "edge": "traite de"
+    },
+    {
+        "node_1": "Ministre délégué auprès de la ministre de l’économie et des finances",
+        "node_2": "Budget",
+        "edge": "est chargé du"
+    },
+    {
+        "node_1": "Dématérialisation des procédures",
+        "node_2": "Marchés publics",
+        "edge": "concerne les"
+    }
+ ][
+    {
+        "node_1": "Soumissionnaires",
+        "node_2": "Adjudicataires de marchés publics",
+        "edge": "Parties prenantes dans les marchés publics"
+    },
+    {
+        "node_1": "Décret Royal n° 330-66",
+        "node_2": "Règlement général de comptabilité publique",
+        "edge": "Définit les règles de gestion financière"
+    },
+    {
+        "node_1": "Décret n° 2-07-1235",
+        "node_2": "Contrôle des dépenses de l’Etat",
+        "edge": "Réglemente la supervision des dépenses publiques"
+    },
+    {
+        "node_1": "Décret n° 2-14-272",
+        "node_2": "Avances en matière de marchés publics",
+        "edge": "Établit les procédures pour les avances dans les marchés publics"
+    },
+    {
+        "node_1": "Décret n° 2-17-449",
+        "node_2": "Comptabilité publique des régions et de leurs groupements",
+        "edge": "Réglemente la gestion financière des entités régionales"
+    },
+    {
+        "node_1": "Décret n° 2-17-450",
+        "node_2": "Comptabilité publique des préfectures et des provinces et de leurs groupements",
+        "edge": "Définit les règles comptables pour les entités administratives locales"
+    },
+    {
+        "node_1": "Décret n° 2-17-451",
+        "node_2": "Comptabilité publique des communes et des établissements de coopération intercommunale",
+        "edge": "Réglemente la gestion financière des entités locales"
+    },
+    {
+        "node_1": "Décret n° 2-22-431",
+        "node_2": "Marchés publics",
+        "edge": "Établit les règles et procédures pour les marchés publics"
+    },
+    {
+        "node_1": "Commission nationale de la commande publique",
+        "node_2": "Arrêté",
+        "edge": "Donne son avis sur l'arrêté relatif aux marchés publics"
+    },
+    {
+        "node_1": "Trésorerie générale du Royaume",
+        "node_2": "Portail des marchés publics",
+        "edge": "Gère le portail des marchés publics"
+    },
+    {
+        "node_1": "Arrêté",
+        "node_2": "Modalités de publication",
+        "edge": "Fixe les conditions de publication des informations sur le portail des marchés publics"
+    }
+ ][
+    {
+        "node_1": "Publication",
+        "node_2": "Portail des marchés publics",
+        "edge": "se fait au niveau de"
+    },
+    {
+        "node_1": "Dépôt des plis et offres",
+        "node_2": "Voie électronique",
+        "edge": "est réalisé par"
+    },
+    {
+        "node_1": "Retrait des plis et offres",
+        "node_2": "Voie électronique",
+        "edge": "se fait par"
+    },
+    {
+        "node_1": "Garanties pécuniaires",
+        "node_2": "Dématérialisation",
+        "edge": "font l'objet d'une"
+    },
+    {
+        "node_1": "Ouverture des plis",
+        "node_2": "Évaluation des offres",
+        "edge": "est suivie de l'"
+    },
+    {
+        "node_1": "Ouverture des plis et évaluation des offres",
+        "node_2": "Voie électronique",
+        "edge": "se font par"
+    }
+ ][
+    {
+        "node_1": "Enchères électroniques inversées",
+        "node_2": "Conditions et modalités de recours",
+        "edge": "sont régies par"
+    },
+    {
+        "node_1": "Achat sur des bons de commande",
+        "node_2": "Voie électronique",
+        "edge": "est effectué par"
+    },
+    {
+        "node_1": "Nantissement des marchés publics",
+        "node_2": "Dématérialisation",
+        "edge": "fait l'objet d'une"
+    },
+    {
+        "node_1": "Systèmes tiers",
+        "node_2": "Interopérabilité",
+        "edge": "nécessite une"
+    },
+    {
+        "node_1": "Documents et pièces",
+        "node_2": "Dématérialisation",
+        "edge": "sont soumis à une"
+    },
+    {
+        "node_2": "Étude préalable des projets de dossiers de consultations",
+        "node_1": "Modalités de dématérialisation",
+        "edge": "est appliquée à l'"
+    },
+    {
+        "node_1": "Base de données des prestataires",
+        "node_2": "Tenue et exploitation",
+        "edge": "est assurée par"
+    },
+    {
+        "node_1": "Portail des marchés publics",
+        "node_2": "Plateforme nationale de dématérialisation",
+        "edge": "constitue une"
+    },
+    {
+        "node_1": "Trésorerie générale du Royaume",
+        "node_2": "Gestion du portail des marchés publics",
+        "edge": "est assurée par"
+    },
+    {
+        "node_1": "Acteurs du portail des marchés publics",
+        "node_2": "Intervenants dans le circuit des marchés publics",
+        "edge": "comprennent notamment les"
+    },
+    {
+        "node_1": "Commission de consultation",
+        "node_2": "Ouverture des plis et évaluation des offres",
+        "edge": "est chargée de l'"
+    }
+ ][
+    {
+        "node_1": "Commissions d'appels d'offres",
+        "node_2": "Commissions de négociation",
+        "edge": "Sont des concurrents"
+    },
+    {
+        "node_1": "Concurrent",
+        "node_2": "Garanties pécuniaires",
+        "edge": "Est exigé par"
+    },
+    {
+        "node_1": "Législation et réglementation",
+        "node_2": "Garanties pécuniaires",
+        "edge": "Règlemente les"
+    },
+    {
+        "node_1": "Cautionnement provisoire",
+        "node_2": "Attestation de la caution personnelle et solidaire",
+        "edge": "Est remplacé par"
+    },
+    {
+        "node_1": "Organisme agréé",
+        "node_2": "Garanties pécuniaires",
+        "edge": "Délivre les"
+    },
+    {
+        "node_1": "Ministre chargé des finances",
+        "node_2": "Organisme agréé",
+        "edge": "Autorise l'"
+    },
+    {
+        "node_1": "Base de données des prestataires",
+        "node_2": "Entrepreneurs, fournisseurs et prestataires de services",
+        "edge": "Enregistre électroniquement les"
+    },
+    {
+        "node_1": "Portail des marchés publics",
+        "node_2": "Base de données des prestataires",
+        "edge": "Héberge le système centralisé d'"
+    }
+ ][
+    {
+        "node_1": "Système tiers",
+        "node_2": "Portail des marchés publics",
+        "edge": "Intègre des documents et des données relatives aux concurrents participant aux marchés publics"
+    },
+    {
+        "node_1": "Acteurs visés au paragraphe b) de l’article 2",
+        "node_2": "Portail des marchés publics",
+        "edge": "Accèdent moyennant attribution d’un nom de compte et d’un mot de passe"
+    },
+    {
+        "node_1": "Nom de compte et mot de passe",
+        "node_2": "Inscription sur le portail des marchés publics",
+        "edge": "Sont attribués selon les modalités publiées"
+    },
+    {
+        "node_1": "Concurrent inscrit",
+        "node_2": "Espace dans la base de données des prestataires",
+        "edge": "Dispose d’un espace contenant ses informations et services accessibles"
+    },
+    {
+        "node_1": "Acteurs du portail des marchés publics",
+        "node_2": "Usage du nom de compte et du mot de passe",
+        "edge": "Sont responsables de l’usage qui

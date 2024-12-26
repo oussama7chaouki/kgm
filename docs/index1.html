@@ -1,0 +1,869 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 900px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="4 hija 1444 (23 juin 2023)">4 hija 1444 (23 juin 2023)</option>
+                                
+                                    <option value="arrêté">arrêté</option>
+                                
+                                    <option value="dahir n° 1-56-211">dahir n° 1-56-211</option>
+                                
+                                    <option value="loi n° 112-13">loi n° 112-13</option>
+                                
+                                    <option value="loi n° 43-20">loi n° 43-20</option>
+                                
+                                    <option value="loi n° 53-05">loi n° 53-05</option>
+                                
+                                    <option value="loi n° 55-19">loi n° 55-19</option>
+                                
+                                    <option value="loi n° 69-00">loi n° 69-00</option>
+                                
+                                    <option value="arrêté n° 1692-23">arrêté n° 1692-23</option>
+                                
+                                    <option value="achat">achat</option>
+                                
+                                    <option value="acteurs portail des marchés publics">acteurs portail des marchés publics</option>
+                                
+                                    <option value="bons de commande">bons de commande</option>
+                                
+                                    <option value="commission consultation">commission consultation</option>
+                                
+                                    <option value="dématisation">dématisation</option>
+                                
+                                    <option value="gestion">gestion</option>
+                                
+                                    <option value="portail des marchés publics">portail des marchés publics</option>
+                                
+                                    <option value="acteur du portail">acteur du portail</option>
+                                
+                                    <option value="signature électronique">signature électronique</option>
+                                
+                                    <option value="trésorerie générale du royaume">trésorerie générale du royaume</option>
+                                
+                                    <option value="acteurs du portail des marchés publics">acteurs du portail des marchés publics</option>
+                                
+                                    <option value="acteurs visés">acteurs visés</option>
+                                
+                                    <option value="compétiteur">compétiteur</option>
+                                
+                                    <option value="espace du concurrent">espace du concurrent</option>
+                                
+                                    <option value="informations associées aux comptes">informations associées aux comptes</option>
+                                
+                                    <option value="informations et documents publiques">informations et documents publiques</option>
+                                
+                                    <option value="informations juridiques, techniques et financières">informations juridiques, techniques et financières</option>
+                                
+                                    <option value="mot de passe">mot de passe</option>
+                                
+                                    <option value="nom de compte">nom de compte</option>
+                                
+                                    <option value="nom de compte et mot de passe">nom de compte et mot de passe</option>
+                                
+                                    <option value="services offerts par portail des marchés publics">services offerts par portail des marchés publics</option>
+                                
+                                    <option value="système tiers">système tiers</option>
+                                
+                                    <option value="base de données prestataires">base de données prestataires</option>
+                                
+                                    <option value="commissions appels d'offres">commissions appels d'offres</option>
+                                
+                                    <option value="commissions négociation">commissions négociation</option>
+                                
+                                    <option value="concurrent">concurrent</option>
+                                
+                                    <option value="documents et pièces">documents et pièces</option>
+                                
+                                    <option value="enchères électroniques inversées">enchères électroniques inversées</option>
+                                
+                                    <option value="interopérabilité">interopérabilité</option>
+                                
+                                    <option value="intervenants circuit marchés publics">intervenants circuit marchés publics</option>
+                                
+                                    <option value="maître d'œuvre">maître d'œuvre</option>
+                                
+                                    <option value="nantissement des marchés publics">nantissement des marchés publics</option>
+                                
+                                    <option value="ouverture plis évaluation offres concurrents">ouverture plis évaluation offres concurrents</option>
+                                
+                                    <option value="plateforme nationale dématérialisation procédures passation marché public">plateforme nationale dématérialisation procédures passation marché public</option>
+                                
+                                    <option value="recours">recours</option>
+                                
+                                    <option value="systèmes tiers">systèmes tiers</option>
+                                
+                                    <option value="tenue et exploitation">tenue et exploitation</option>
+                                
+                                    <option value="étude préalable projets dossiers consultations">étude préalable projets dossiers consultations</option>
+                                
+                                    <option value="adjudicataires de marchés publics">adjudicataires de marchés publics</option>
+                                
+                                    <option value="soumissionnaires">soumissionnaires</option>
+                                
+                                    <option value="administrations habilitées">administrations habilitées</option>
+                                
+                                    <option value="auto-entrepreneurs">auto-entrepreneurs</option>
+                                
+                                    <option value="autorisation requise pour l'exercice d'une activité">autorisation requise pour l'exercice d'une activité</option>
+                                
+                                    <option value="avis émanant d’elle">avis émanant d’elle</option>
+                                
+                                    <option value="bi-clés de chiffrement">bi-clés de chiffrement</option>
+                                
+                                    <option value="certificats de qualification et de classification des entreprises">certificats de qualification et de classification des entreprises</option>
+                                
+                                    <option value="certificats d’agrément relatif à la maîtrise d’œuvre">certificats d’agrément relatif à la maîtrise d’œuvre</option>
+                                
+                                    <option value="commission nationale de la commande publique">commission nationale de la commande publique</option>
+                                
+                                    <option value="composition et contenu des plis électroniques exigés">composition et contenu des plis électroniques exigés</option>
+                                
+                                    <option value="coopératives">coopératives</option>
+                                
+                                    <option value="dossier de consultation pour recueillir leurs observations éventuelles">dossier de consultation pour recueillir leurs observations éventuelles</option>
+                                
+                                    <option value="dépôt et retrait des plis et offres">dépôt et retrait des plis et offres</option>
+                                
+                                    <option value="marchés publics attribués">marchés publics attribués</option>
+                                
+                                    <option value="très petites, petites et moyennes entreprises">très petites, petites et moyennes entreprises</option>
+                                
+                                    <option value="unions de coopératives">unions de coopératives</option>
+                                
+                                    <option value="admissibilité des concurrents">admissibilité des concurrents</option>
+                                
+                                    <option value="commission de consultation">commission de consultation</option>
+                                
+                                    <option value="concourants">concourants</option>
+                                
+                                    <option value="évaluation des offres">évaluation des offres</option>
+                                
+                                    <option value="appels d'offres">appels d'offres</option>
+                                
+                                    <option value="extraits">extraits</option>
+                                
+                                    <option value="procès-verbaux">procès-verbaux</option>
+                                
+                                    <option value="résultats">résultats</option>
+                                
+                                    <option value="synthèses">synthèses</option>
+                                
+                                    <option value="arrêté du ministre délégué">arrêté du ministre délégué</option>
+                                
+                                    <option value="avances en matière de marchés publics">avances en matière de marchés publics</option>
+                                
+                                    <option value="avis">avis</option>
+                                
+                                    <option value="contrôle des dépenses de l’etat">contrôle des dépenses de l’etat</option>
+                                
+                                    <option value="contrôle financier de l'état sur les entreprises publiques et autres organismes">contrôle financier de l'état sur les entreprises publiques et autres organismes</option>
+                                
+                                    <option value="dahir n° 1-03-195">dahir n° 1-03-195</option>
+                                
+                                    <option value="dahir n° 1-07-129">dahir n° 1-07-129</option>
+                                
+                                    <option value="dahir n° 1-15-05">dahir n° 1-15-05</option>
+                                
+                                    <option value="dahir n° 1-20-06">dahir n° 1-20-06</option>
+                                
+                                    <option value="dahir n° 1-20-100">dahir n° 1-20-100</option>
+                                
+                                    <option value="décret n° 2-07-1235">décret n° 2-07-1235</option>
+                                
+                                    <option value="décret n° 2-14-272">décret n° 2-14-272</option>
+                                
+                                    <option value="décret n° 2-17-449">décret n° 2-17-449</option>
+                                
+                                    <option value="décret n° 2-17-450">décret n° 2-17-450</option>
+                                
+                                    <option value="décret n° 2-17-451">décret n° 2-17-451</option>
+                                
+                                    <option value="décret n° 2-22-431">décret n° 2-22-431</option>
+                                
+                                    <option value="décret royal n° 330-66">décret royal n° 330-66</option>
+                                
+                                    <option value="dématérialisation des procédures, documents et pièces relatifs aux marchés publics">dématérialisation des procédures, documents et pièces relatifs aux marchés publics</option>
+                                
+                                    <option value="garanties pécuniaires des soumissionnaires et adjudicataires de marchés publics">garanties pécuniaires des soumissionnaires et adjudicataires de marchés publics</option>
+                                
+                                    <option value="marchés publics">marchés publics</option>
+                                
+                                    <option value="ministre de l'économie et des finances">ministre de l'économie et des finances</option>
+                                
+                                    <option value="modalités de gestion du portail des marchés publics">modalités de gestion du portail des marchés publics</option>
+                                
+                                    <option value="publication d'informations et documents sur le portail">publication d'informations et documents sur le portail</option>
+                                
+                                    <option value="règlement de la comptabilité publique des communes et établissements de coopération intercommunale">règlement de la comptabilité publique des communes et établissements de coopération intercommunale</option>
+                                
+                                    <option value="règlement de la comptabilité publique des préfectures et provinces">règlement de la comptabilité publique des préfectures et provinces</option>
+                                
+                                    <option value="règlement de la comptabilité publique des régions">règlement de la comptabilité publique des régions</option>
+                                
+                                    <option value="règlement général de comptabilité publique">règlement général de comptabilité publique</option>
+                                
+                                    <option value="services de confiance pour les transactions électroniques">services de confiance pour les transactions électroniques</option>
+                                
+                                    <option value="simplification des procédures et formalités administratives">simplification des procédures et formalités administratives</option>
+                                
+                                    <option value="échange électronique des données juridiques">échange électronique des données juridiques</option>
+                                
+                                    <option value="article 134">article 134</option>
+                                
+                                    <option value="attestation de caution personnelle et solidaire">attestation de caution personnelle et solidaire</option>
+                                
+                                    <option value="base de données des prestataires">base de données des prestataires</option>
+                                
+                                    <option value="garanties pécuniaires">garanties pécuniaires</option>
+                                
+                                    <option value="attributaire de l'offre">attributaire de l'offre</option>
+                                
+                                    <option value="avis d'appel à manifestation d'intérêt">avis d'appel à manifestation d'intérêt</option>
+                                
+                                    <option value="maître d’ouvrage">maître d’ouvrage</option>
+                                
+                                    <option value="avis de publicité et rectificatifs">avis de publicité et rectificatifs</option>
+                                
+                                    <option value="avis des enchères électroniques inversées">avis des enchères électroniques inversées</option>
+                                
+                                    <option value="caution garantissant le remboursement de l'avance">caution garantissant le remboursement de l'avance</option>
+                                
+                                    <option value="cautionnement définitif">cautionnement définitif</option>
+                                
+                                    <option value="cautionnement provisoire">cautionnement provisoire</option>
+                                
+                                    <option value="cautions personnelles et solidaires">cautions personnelles et solidaires</option>
+                                
+                                    <option value="commissions d'appels d'offres">commissions d'appels d'offres</option>
+                                
+                                    <option value="commissions de négociation">commissions de négociation</option>
+                                
+                                    <option value="concurrent ou titulaire du marché">concurrent ou titulaire du marché</option>
+                                
+                                    <option value="entrepreneurs, fournisseurs et prestataires de services">entrepreneurs, fournisseurs et prestataires de services</option>
+                                
+                                    <option value="ministre chargé des finances">ministre chargé des finances</option>
+                                
+                                    <option value="organisme agréé">organisme agréé</option>
+                                
+                                    <option value="retenue de garantie">retenue de garantie</option>
+                                
+                                    <option value="plis électroniques">plis électroniques</option>
+                                
+                                    <option value="bi-clés de chiffrement et déchiffrement">bi-clés de chiffrement et déchiffrement</option>
+                                
+                                    <option value="concours">concours</option>
+                                
+                                    <option value="conventions et contrats">conventions et contrats</option>
+                                
+                                    <option value="droit commun">droit commun</option>
+                                
+                                    <option value="marchés négociés">marchés négociés</option>
+                                
+                                    <option value="montant global">montant global</option>
+                                
+                                    <option value="nombre">nombre</option>
+                                
+                                    <option value="rapports d'audit">rapports d'audit</option>
+                                
+                                    <option value="rapports de contrôle">rapports de contrôle</option>
+                                
+                                    <option value="réunions">réunions</option>
+                                
+                                    <option value="séances d'examen">séances d'examen</option>
+                                
+                                    <option value="visites">visites</option>
+                                
+                                    <option value="candidatures et offres électroniques">candidatures et offres électroniques</option>
+                                
+                                    <option value="certificat de signature électronique">certificat de signature électronique</option>
+                                
+                                    <option value="chapitre ii">chapitre ii</option>
+                                
+                                    <option value="gestion du portail des marchés publics">gestion du portail des marchés publics</option>
+                                
+                                    <option value="concourants éliminés">concourants éliminés</option>
+                                
+                                    <option value="discordances dans le dossier administratif">discordances dans le dossier administratif</option>
+                                
+                                    <option value="dispositions du décret n° 2-22-431">dispositions du décret n° 2-22-431</option>
+                                
+                                    <option value="dispositions réglementaires">dispositions réglementaires</option>
+                                
+                                    <option value="documents ou données">documents ou données</option>
+                                
+                                    <option value="délai de validité des offres">délai de validité des offres</option>
+                                
+                                    <option value="offre la plus avantageuse">offre la plus avantageuse</option>
+                                
+                                    <option value="passation des marchés publics">passation des marchés publics</option>
+                                
+                                    <option value="plis des concurrents">plis des concurrents</option>
+                                
+                                    <option value="plis déposés">plis déposés</option>
+                                
+                                    <option value="plis et offre">plis et offre</option>
+                                
+                                    <option value="prix unitaires principaux">prix unitaires principaux</option>
+                                
+                                    <option value="rectifications des erreurs matérielles">rectifications des erreurs matérielles</option>
+                                
+                                    <option value="résultat de la séance d'ouverture">résultat de la séance d'ouverture</option>
+                                
+                                    <option value="résultats définitifs">résultats définitifs</option>
+                                
+                                    <option value="échantillons ou prototypes">échantillons ou prototypes</option>
+                                
+                                    <option value="comptes utilisateurs">comptes utilisateurs</option>
+                                
+                                    <option value="conditions et modalités">conditions et modalités</option>
+                                
+                                    <option value="dématérialisation des garanties pécuniaires">dématérialisation des garanties pécuniaires</option>
+                                
+                                    <option value="dépôt par voie électronique">dépôt par voie électronique</option>
+                                
+                                    <option value="informations et documents">informations et documents</option>
+                                
+                                    <option value="l'ouverture des plis">l'ouverture des plis</option>
+                                
+                                    <option value="modalités de dématérialisation">modalités de dématérialisation</option>
+                                
+                                    <option value="modalités de dépôt">modalités de dépôt</option>
+                                
+                                    <option value="modalités de publication">modalités de publication</option>
+                                
+                                    <option value="modalités de retrait">modalités de retrait</option>
+                                
+                                    <option value="ouverture des plis">ouverture des plis</option>
+                                
+                                    <option value="ouverture et évaluation">ouverture et évaluation</option>
+                                
+                                    <option value="plis et offres des concurrents">plis et offres des concurrents</option>
+                                
+                                    <option value="retrait par voie électronique">retrait par voie électronique</option>
+                                
+                                    <option value="dispositif de création et gestion des comptes">dispositif de création et gestion des comptes</option>
+                                
+                                    <option value="dossiers d'appel à la concurrence">dossiers d'appel à la concurrence</option>
+                                
+                                    <option value="gestion des certificats électroniques">gestion des certificats électroniques</option>
+                                
+                                    <option value="gestionnaire du portail des marchés publics">gestionnaire du portail des marchés publics</option>
+                                
+                                    <option value="infrastructure technique">infrastructure technique</option>
+                                
+                                    <option value="maintenance préventive et évolutive">maintenance préventive et évolutive</option>
+                                
+                                    <option value="procès-verbaux de réunions ou visites lieux">procès-verbaux de réunions ou visites lieux</option>
+                                
+                                    <option value="programme prévisionnel triennal des marchés">programme prévisionnel triennal des marchés</option>
+                                
+                                    <option value="publication de documents marchés publics">publication de documents marchés publics</option>
+                                
+                                    <option value="publication de textes législatifs et réglementaires">publication de textes législatifs et réglementaires</option>
+                                
+                                    <option value="sécurité technique et cryptographique">sécurité technique et cryptographique</option>
+                                
+                                    <option value="veille sur l'utilisation du portail">veille sur l'utilisation du portail</option>
+                                
+                                    <option value="pièces et documents">pièces et documents</option>
+                                
+                                    <option value="points de contrôle">points de contrôle</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"group": 1, "id": "4 hija 1444 (23 juin 2023)", "label": "4 hija 1444 (23 juin 2023)", "shape": "dot", "size": 8}, {"group": 1, "id": "arr\u00eat\u00e9", "label": "arr\u00eat\u00e9", "shape": "dot", "size": 42}, {"group": 1, "id": "dahir n\u00b0 1-56-211", "label": "dahir n\u00b0 1-56-211", "shape": "dot", "size": 22}, {"group": 1, "id": "loi n\u00b0 112-13", "label": "loi n\u00b0 112-13", "shape": "dot", "size": 22}, {"group": 1, "id": "loi n\u00b0 43-20", "label": "loi n\u00b0 43-20", "shape": "dot", "size": 22}, {"group": 1, "id": "loi n\u00b0 53-05", "label": "loi n\u00b0 53-05", "shape": "dot", "size": 22}, {"group": 1, "id": "loi n\u00b0 55-19", "label": "loi n\u00b0 55-19", "shape": "dot", "size": 22}, {"group": 1, "id": "loi n\u00b0 69-00", "label": "loi n\u00b0 69-00", "shape": "dot", "size": 22}, {"group": 1, "id": "arr\u00eat\u00e9 n\u00b0 1692-23", "label": "arr\u00eat\u00e9 n\u00b0 1692-23", "shape": "dot", "size": 8}, {"group": 2, "id": "achat", "label": "achat", "shape": "dot", "size": 6}, {"group": 2, "id": "acteurs portail des march\u00e9s publics", "label": "acteurs portail des march\u00e9s publics", "shape": "dot", "size": 23}, {"group": 3, "id": "bons de commande", "label": "bons de commande", "shape": "dot", "size": 22}, {"group": 2, "id": "commission consultation", "label": "commission consultation", "shape": "dot", "size": 23}, {"group": 2, "id": "d\u00e9matisation", "label": "d\u00e9matisation", "shape": "dot", "size": 23}, {"group": 2, "id": "gestion", "label": "gestion", "shape": "dot", "size": 23}, {"group": 2, "id": "portail des march\u00e9s publics", "label": "portail des march\u00e9s publics", "shape": "dot", "size": 87}, {"group": 2, "id": "acteur du portail", "label": "acteur du portail", "shape": "dot", "size": 3}, {"group": 2, "id": "signature \u00e9lectronique", "label": "signature \u00e9lectronique", "shape": "dot", "size": 12}, {"group": 2, "id": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "label": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "shape": "dot", "size": 18}, {"group": 2, "id": "acteurs du portail des march\u00e9s publics", "label": "acteurs du portail des march\u00e9s publics", "shape": "dot", "size": 12}, {"group": 2, "id": "acteurs vis\u00e9s", "label": "acteurs vis\u00e9s", "shape": "dot", "size": 3}, {"group": 2, "id": "comp\u00e9titeur", "label": "comp\u00e9titeur", "shape": "dot", "size": 3}, {"group": 2, "id": "espace du concurrent", "label": "espace du concurrent", "shape": "dot", "size": 12}, {"group": 2, "id": "informations associ\u00e9es aux comptes", "label": "informations associ\u00e9es aux comptes", "shape": "dot", "size": 3}, {"group": 2, "id": "informations et documents publiques", "label": "informations et documents publiques", "shape": "dot", "size": 3}, {"group": 2, "id": "informations juridiques, techniques et financi\u00e8res", "label": "informations juridiques, techniques et financi\u00e8res", "shape": "dot", "size": 3}, {"group": 2, "id": "mot de passe", "label": "mot de passe", "shape": "dot", "size": 4}, {"group": 2, "id": "nom de compte", "label": "nom de compte", "shape": "dot", "size": 4}, {"group": 2, "id": "nom de compte et mot de passe", "label": "nom de compte et mot de passe", "shape": "dot", "size": 3}, {"group": 2, "id": "services offerts par portail des march\u00e9s publics", "label": "services offerts par portail des march\u00e9s publics", "shape": "dot", "size": 3}, {"group": 2, "id": "syst\u00e8me tiers", "label": "syst\u00e8me tiers", "shape": "dot", "size": 3}, {"group": 2, "id": "base de donn\u00e9es prestataires", "label": "base de donn\u00e9es prestataires", "shape": "dot", "size": 6}, {"group": 2, "id": "commissions appels d\u0027offres", "label": "commissions appels d\u0027offres", "shape": "dot", "size": 5}, {"group": 2, "id": "commissions n\u00e9gociation", "label": "commissions n\u00e9gociation", "shape": "dot", "size": 5}, {"group": 2, "id": "concurrent", "label": "concurrent", "shape": "dot", "size": 18}, {"group": 2, "id": "documents et pi\u00e8ces", "label": "documents et pi\u00e8ces", "shape": "dot", "size": 5}, {"group": 2, "id": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "label": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "shape": "dot", "size": 6}, {"group": 2, "id": "interop\u00e9rabilit\u00e9", "label": "interop\u00e9rabilit\u00e9", "shape": "dot", "size": 6}, {"group": 2, "id": "intervenants circuit march\u00e9s publics", "label": "intervenants circuit march\u00e9s publics", "shape": "dot", "size": 5}, {"group": 2, "id": "ma\u00eetre d\u0027\u0153uvre", "label": "ma\u00eetre d\u0027\u0153uvre", "shape": "dot", "size": 20}, {"group": 1, "id": "nantissement des march\u00e9s publics", "label": "nantissement des march\u00e9s publics", "shape": "dot", "size": 12}, {"group": 2, "id": "ouverture plis \u00e9valuation offres concurrents", "label": "ouverture plis \u00e9valuation offres concurrents", "shape": "dot", "size": 5}, {"group": 2, "id": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "label": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "shape": "dot", "size": 5}, {"group": 2, "id": "recours", "label": "recours", "shape": "dot", "size": 6}, {"group": 2, "id": "syst\u00e8mes tiers", "label": "syst\u00e8mes tiers", "shape": "dot", "size": 6}, {"group": 2, "id": "tenue et exploitation", "label": "tenue et exploitation", "shape": "dot", "size": 6}, {"group": 2, "id": "\u00e9tude pr\u00e9alable projets dossiers consultations", "label": "\u00e9tude pr\u00e9alable projets dossiers consultations", "shape": "dot", "size": 5}, {"group": 1, "id": "adjudicataires de march\u00e9s publics", "label": "adjudicataires de march\u00e9s publics", "shape": "dot", "size": 2}, {"group": 1, "id": "soumissionnaires", "label": "soumissionnaires", "shape": "dot", "size": 2}, {"group": 2, "id": "administrations habilit\u00e9es", "label": "administrations habilit\u00e9es", "shape": "dot", "size": 16}, {"group": 2, "id": "auto-entrepreneurs", "label": "auto-entrepreneurs", "shape": "dot", "size": 3}, {"group": 2, "id": "autorisation requise pour l\u0027exercice d\u0027une activit\u00e9", "label": "autorisation requise pour l\u0027exercice d\u0027une activit\u00e9", "shape": "dot", "size": 3}, {"group": 2, "id": "avis \u00e9manant d\u2019elle", "label": "avis \u00e9manant d\u2019elle", "shape": "dot", "size": 4}, {"group": 2, "id": "bi-cl\u00e9s de chiffrement", "label": "bi-cl\u00e9s de chiffrement", "shape": "dot", "size": 8}, {"group": 2, "id": "certificats de qualification et de classification des entreprises", "label": "certificats de qualification et de classification des entreprises", "shape": "dot", "size": 3}, {"group": 2, "id": "certificats d\u2019agr\u00e9ment relatif \u00e0 la ma\u00eetrise d\u2019\u0153uvre", "label": "certificats d\u2019agr\u00e9ment relatif \u00e0 la ma\u00eetrise d\u2019\u0153uvre", "shape": "dot", "size": 3}, {"group": 2, "id": "commission nationale de la commande publique", "label": "commission nationale de la commande publique", "shape": "dot", "size": 6}, {"group": 2, "id": "composition et contenu des plis \u00e9lectroniques exig\u00e9s", "label": "composition et contenu des plis \u00e9lectroniques exig\u00e9s", "shape": "dot", "size": 3}, {"group": 2, "id": "coop\u00e9ratives", "label": "coop\u00e9ratives", "shape": "dot", "size": 3}, {"group": 2, "id": "dossier de consultation pour recueillir leurs observations \u00e9ventuelles", "label": "dossier de consultation pour recueillir leurs observations \u00e9ventuelles", "shape": "dot", "size": 3}, {"group": 2, "id": "d\u00e9p\u00f4t et retrait des plis et offres", "label": "d\u00e9p\u00f4t et retrait des plis et offres", "shape": "dot", "size": 4}, {"group": 2, "id": "march\u00e9s publics attribu\u00e9s", "label": "march\u00e9s publics attribu\u00e9s", "shape": "dot", "size": 16}, {"group": 2, "id": "tr\u00e8s petites, petites et moyennes entreprises", "label": "tr\u00e8s petites, petites et moyennes entreprises", "shape": "dot", "size": 3}, {"group": 2, "id": "unions de coop\u00e9ratives", "label": "unions de coop\u00e9ratives", "shape": "dot", "size": 3}, {"group": 2, "id": "admissibilit\u00e9 des concurrents", "label": "admissibilit\u00e9 des concurrents", "shape": "dot", "size": 4}, {"group": 2, "id": "commission de consultation", "label": "commission de consultation", "shape": "dot", "size": 28}, {"group": 2, "id": "concourants", "label": "concourants", "shape": "dot", "size": 15}, {"group": 2, "id": "\u00e9valuation des offres", "label": "\u00e9valuation des offres", "shape": "dot", "size": 29}, {"group": 3, "id": "appels d\u0027offres", "label": "appels d\u0027offres", "shape": "dot", "size": 5}, {"group": 3, "id": "extraits", "label": "extraits", "shape": "dot", "size": 16}, {"group": 3, "id": "proc\u00e8s-verbaux", "label": "proc\u00e8s-verbaux", "shape": "dot", "size": 16}, {"group": 3, "id": "r\u00e9sultats", "label": "r\u00e9sultats", "shape": "dot", "size": 16}, {"group": 3, "id": "synth\u00e8ses", "label": "synth\u00e8ses", "shape": "dot", "size": 16}, {"group": 1, "id": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "label": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "shape": "dot", "size": 8}, {"group": 1, "id": "avances en mati\u00e8re de march\u00e9s publics", "label": "avances en mati\u00e8re de march\u00e9s publics", "shape": "dot", "size": 2}, {"group": 1, "id": "avis", "label": "avis", "shape": "dot", "size": 2}, {"group": 1, "id": "contr\u00f4le des d\u00e9penses de l\u2019etat", "label": "contr\u00f4le des d\u00e9penses de l\u2019etat", "shape": "dot", "size": 2}, {"group": 1, "id": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "label": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "shape": "dot", "size": 7}, {"group": 1, "id": "dahir n\u00b0 1-03-195", "label": "dahir n\u00b0 1-03-195", "shape": "dot", "size": 7}, {"group": 1, "id": "dahir n\u00b0 1-07-129", "label": "dahir n\u00b0 1-07-129", "shape": "dot", "size": 7}, {"group": 1, "id": "dahir n\u00b0 1-15-05", "label": "dahir n\u00b0 1-15-05", "shape": "dot", "size": 7}, {"group": 1, "id": "dahir n\u00b0 1-20-06", "label": "dahir n\u00b0 1-20-06", "shape": "dot", "size": 7}, {"group": 1, "id": "dahir n\u00b0 1-20-100", "label": "dahir n\u00b0 1-20-100", "shape": "dot", "size": 7}, {"group": 1, "id": "d\u00e9cret n\u00b0 2-07-1235", "label": "d\u00e9cret n\u00b0 2-07-1235", "shape": "dot", "size": 2}, {"group": 1, "id": "d\u00e9cret n\u00b0 2-14-272", "label": "d\u00e9cret n\u00b0 2-14-272", "shape": "dot", "size": 2}, {"group": 1, "id": "d\u00e9cret n\u00b0 2-17-449", "label": "d\u00e9cret n\u00b0 2-17-449", "shape": "dot", "size": 2}, {"group": 1, "id": "d\u00e9cret n\u00b0 2-17-450", "label": "d\u00e9cret n\u00b0 2-17-450", "shape": "dot", "size": 2}, {"group": 1, "id": "d\u00e9cret n\u00b0 2-17-451", "label": "d\u00e9cret n\u00b0 2-17-451", "shape": "dot", "size": 2}, {"group": 2, "id": "d\u00e9cret n\u00b0 2-22-431", "label": "d\u00e9cret n\u00b0 2-22-431", "shape": "dot", "size": 10}, {"group": 1, "id": "d\u00e9cret royal n\u00b0 330-66", "label": "d\u00e9cret royal n\u00b0 330-66", "shape": "dot", "size": 2}, {"group": 1, "id": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "label": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "shape": "dot", "size": 7}, {"group": 1, "id": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "label": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "shape": "dot", "size": 7}, {"group": 1, "id": "march\u00e9s publics", "label": "march\u00e9s publics", "shape": "dot", "size": 2}, {"group": 1, "id": "ministre de l\u0027\u00e9conomie et des finances", "label": "ministre de l\u0027\u00e9conomie et des finances", "shape": "dot", "size": 8}, {"group": 1, "id": "modalit\u00e9s de gestion du portail des march\u00e9s publics", "label": "modalit\u00e9s de gestion du portail des march\u00e9s publics", "shape": "dot", "size": 1}, {"group": 1, "id": "publication d\u0027informations et documents sur le portail", "label": "publication d\u0027informations et documents sur le portail", "shape": "dot", "size": 1}, {"group": 1, "id": "r\u00e8glement de la comptabilit\u00e9 publique des communes et \u00e9tablissements de coop\u00e9ration intercommunale", "label": "r\u00e8glement de la comptabilit\u00e9 publique des communes et \u00e9tablissements de coop\u00e9ration intercommunale", "shape": "dot", "size": 2}, {"group": 1, "id": "r\u00e8glement de la comptabilit\u00e9 publique des pr\u00e9fectures et provinces", "label": "r\u00e8glement de la comptabilit\u00e9 publique des pr\u00e9fectures et provinces", "shape": "dot", "size": 2}, {"group": 1, "id": "r\u00e8glement de la comptabilit\u00e9 publique des r\u00e9gions", "label": "r\u00e8glement de la comptabilit\u00e9 publique des r\u00e9gions", "shape": "dot", "size": 2}, {"group": 1, "id": "r\u00e8glement g\u00e9n\u00e9ral de comptabilit\u00e9 publique", "label": "r\u00e8glement g\u00e9n\u00e9ral de comptabilit\u00e9 publique", "shape": "dot", "size": 2}, {"group": 1, "id": "services de confiance pour les transactions \u00e9lectroniques", "label": "services de confiance pour les transactions \u00e9lectroniques", "shape": "dot", "size": 7}, {"group": 1, "id": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "label": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "shape": "dot", "size": 7}, {"group": 1, "id": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "label": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "shape": "dot", "size": 7}, {"group": 2, "id": "article 134", "label": "article 134", "shape": "dot", "size": 4}, {"group": 2, "id": "attestation de caution personnelle et solidaire", "label": "attestation de caution personnelle et solidaire", "shape": "dot", "size": 2}, {"group": 2, "id": "base de donn\u00e9es des prestataires", "label": "base de donn\u00e9es des prestataires", "shape": "dot", "size": 14}, {"group": 2, "id": "garanties p\u00e9cuniaires", "label": "garanties p\u00e9cuniaires", "shape": "dot", "size": 21}, {"group": 2, "id": "attributaire de l\u0027offre", "label": "attributaire de l\u0027offre", "shape": "dot", "size": 4}, {"group": 2, "id": "avis d\u0027appel \u00e0 manifestation d\u0027int\u00e9r\u00eat", "label": "avis d\u0027appel \u00e0 manifestation d\u0027int\u00e9r\u00eat", "shape": "dot", "size": 2}, {"group": 2, "id": "ma\u00eetre d\u2019ouvrage", "label": "ma\u00eetre d\u2019ouvrage", "shape": "dot", "size": 29}, {"group": 2, "id": "avis de publicit\u00e9 et rectificatifs", "label": "avis de publicit\u00e9 et rectificatifs", "shape": "dot", "size": 2}, {"group": 2, "id": "avis des ench\u00e8res \u00e9lectroniques invers\u00e9es", "label": "avis des ench\u00e8res \u00e9lectroniques invers\u00e9es", "shape": "dot", "size": 2}, {"group": 2, "id": "caution garantissant le remboursement de l\u0027avance", "label": "caution garantissant le remboursement de l\u0027avance", "shape": "dot", "size": 2}, {"group": 2, "id": "cautionnement d\u00e9finitif", "label": "cautionnement d\u00e9finitif", "shape": "dot", "size": 2}, {"group": 2, "id": "cautionnement provisoire", "label": "cautionnement provisoire", "shape": "dot", "size": 2}, {"group": 2, "id": "cautions personnelles et solidaires", "label": "cautions personnelles et solidaires", "shape": "dot", "size": 2}, {"group": 2, "id": "commissions d\u0027appels d\u0027offres", "label": "commissions d\u0027appels d\u0027offres", "shape": "dot", "size": 3}, {"group": 2, "id": "commissions de n\u00e9gociation", "label": "commissions de n\u00e9gociation", "shape": "dot", "size": 3}, {"group": 2, "id": "concurrent ou titulaire du march\u00e9", "label": "concurrent ou titulaire du march\u00e9", "shape": "dot", "size": 2}, {"group": 2, "id": "entrepreneurs, fournisseurs et prestataires de services", "label": "entrepreneurs, fournisseurs et prestataires de services", "shape": "dot", "size": 2}, {"group": 2, "id": "ministre charg\u00e9 des finances", "label": "ministre charg\u00e9 des finances", "shape": "dot", "size": 3}, {"group": 2, "id": "organisme agr\u00e9\u00e9", "label": "organisme agr\u00e9\u00e9", "shape": "dot", "size": 3}, {"group": 2, "id": "retenue de garantie", "label": "retenue de garantie", "shape": "dot", "size": 2}, {"group": 2, "id": "plis \u00e9lectroniques", "label": "plis \u00e9lectroniques", "shape": "dot", "size": 5}, {"group": 2, "id": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "label": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "shape": "dot", "size": 4}, {"group": 3, "id": "concours", "label": "concours", "shape": "dot", "size": 5}, {"group": 3, "id": "conventions et contrats", "label": "conventions et contrats", "shape": "dot", "size": 6}, {"group": 3, "id": "droit commun", "label": "droit commun", "shape": "dot", "size": 6}, {"group": 3, "id": "march\u00e9s n\u00e9goci\u00e9s", "label": "march\u00e9s n\u00e9goci\u00e9s", "shape": "dot", "size": 5}, {"group": 3, "id": "montant global", "label": "montant global", "shape": "dot", "size": 5}, {"group": 3, "id": "nombre", "label": "nombre", "shape": "dot", "size": 5}, {"group": 3, "id": "rapports d\u0027audit", "label": "rapports d\u0027audit", "shape": "dot", "size": 5}, {"group": 3, "id": "rapports de contr\u00f4le", "label": "rapports de contr\u00f4le", "shape": "dot", "size": 5}, {"group": 3, "id": "r\u00e9unions", "label": "r\u00e9unions", "shape": "dot", "size": 5}, {"group": 3, "id": "s\u00e9ances d\u0027examen", "label": "s\u00e9ances d\u0027examen", "shape": "dot", "size": 5}, {"group": 3, "id": "visites", "label": "visites", "shape": "dot", "size": 5}, {"group": 2, "id": "candidatures et offres \u00e9lectroniques", "label": "candidatures et offres \u00e9lectroniques", "shape": "dot", "size": 4}, {"group": 2, "id": "certificat de signature \u00e9lectronique", "label": "certificat de signature \u00e9lectronique", "shape": "dot", "size": 3}, {"group": 2, "id": "chapitre ii", "label": "chapitre ii", "shape": "dot", "size": 4}, {"group": 2, "id": "gestion du portail des march\u00e9s publics", "label": "gestion du portail des march\u00e9s publics", "shape": "dot", "size": 4}, {"group": 2, "id": "concourants \u00e9limin\u00e9s", "label": "concourants \u00e9limin\u00e9s", "shape": "dot", "size": 4}, {"group": 2, "id": "discordances dans le dossier administratif", "label": "discordances dans le dossier administratif", "shape": "dot", "size": 3}, {"group": 2, "id": "dispositions du d\u00e9cret n\u00b0 2-22-431", "label": "dispositions du d\u00e9cret n\u00b0 2-22-431", "shape": "dot", "size": 3}, {"group": 2, "id": "dispositions r\u00e9glementaires", "label": "dispositions r\u00e9glementaires", "shape": "dot", "size": 4}, {"group": 2, "id": "documents ou donn\u00e9es", "label": "documents ou donn\u00e9es", "shape": "dot", "size": 5}, {"group": 2, "id": "d\u00e9lai de validit\u00e9 des offres", "label": "d\u00e9lai de validit\u00e9 des offres", "shape": "dot", "size": 4}, {"group": 2, "id": "offre la plus avantageuse", "label": "offre la plus avantageuse", "shape": "dot", "size": 3}, {"group": 2, "id": "passation des march\u00e9s publics", "label": "passation des march\u00e9s publics", "shape": "dot", "size": 5}, {"group": 2, "id": "plis des concurrents", "label": "plis des concurrents", "shape": "dot", "size": 4}, {"group": 2, "id": "plis d\u00e9pos\u00e9s", "label": "plis d\u00e9pos\u00e9s", "shape": "dot", "size": 3}, {"group": 2, "id": "plis et offre", "label": "plis et offre", "shape": "dot", "size": 3}, {"group": 2, "id": "prix unitaires principaux", "label": "prix unitaires principaux", "shape": "dot", "size": 3}, {"group": 2, "id": "rectifications des erreurs mat\u00e9rielles", "label": "rectifications des erreurs mat\u00e9rielles", "shape": "dot", "size": 3}, {"group": 2, "id": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "label": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "shape": "dot", "size": 4}, {"group": 2, "id": "r\u00e9sultats d\u00e9finitifs", "label": "r\u00e9sultats d\u00e9finitifs", "shape": "dot", "size": 3}, {"group": 2, "id": "\u00e9chantillons ou prototypes", "label": "\u00e9chantillons ou prototypes", "shape": "dot", "size": 3}, {"group": 2, "id": "comptes utilisateurs", "label": "comptes utilisateurs", "shape": "dot", "size": 2}, {"group": 2, "id": "conditions et modalit\u00e9s", "label": "conditions et modalit\u00e9s", "shape": "dot", "size": 15}, {"group": 2, "id": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "label": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "shape": "dot", "size": 7}, {"group": 2, "id": "d\u00e9p\u00f4t par voie \u00e9lectronique", "label": "d\u00e9p\u00f4t par voie \u00e9lectronique", "shape": "dot", "size": 7}, {"group": 2, "id": "informations et documents", "label": "informations et documents", "shape": "dot", "size": 7}, {"group": 2, "id": "l\u0027ouverture des plis", "label": "l\u0027ouverture des plis", "shape": "dot", "size": 7}, {"group": 2, "id": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "label": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "shape": "dot", "size": 15}, {"group": 2, "id": "modalit\u00e9s de d\u00e9p\u00f4t", "label": "modalit\u00e9s de d\u00e9p\u00f4t", "shape": "dot", "size": 15}, {"group": 2, "id": "modalit\u00e9s de publication", "label": "modalit\u00e9s de publication", "shape": "dot", "size": 15}, {"group": 2, "id": "modalit\u00e9s de retrait", "label": "modalit\u00e9s de retrait", "shape": "dot", "size": 15}, {"group": 2, "id": "ouverture des plis", "label": "ouverture des plis", "shape": "dot", "size": 7}, {"group": 2, "id": "ouverture et \u00e9valuation", "label": "ouverture et \u00e9valuation", "shape": "dot", "size": 7}, {"group": 2, "id": "plis et offres des concurrents", "label": "plis et offres des concurrents", "shape": "dot", "size": 15}, {"group": 2, "id": "retrait par voie \u00e9lectronique", "label": "retrait par voie \u00e9lectronique", "shape": "dot", "size": 7}, {"group": 2, "id": "dispositif de cr\u00e9ation et gestion des comptes", "label": "dispositif de cr\u00e9ation et gestion des comptes", "shape": "dot", "size": 2}, {"group": 2, "id": "dossiers d\u0027appel \u00e0 la concurrence", "label": "dossiers d\u0027appel \u00e0 la concurrence", "shape": "dot", "size": 2}, {"group": 2, "id": "gestion des certificats \u00e9lectroniques", "label": "gestion des certificats \u00e9lectroniques", "shape": "dot", "size": 2}, {"group": 2, "id": "gestionnaire du portail des march\u00e9s publics", "label": "gestionnaire du portail des march\u00e9s publics", "shape": "dot", "size": 3}, {"group": 2, "id": "infrastructure technique", "label": "infrastructure technique", "shape": "dot", "size": 3}, {"group": 2, "id": "maintenance pr\u00e9ventive et \u00e9volutive", "label": "maintenance pr\u00e9ventive et \u00e9volutive", "shape": "dot", "size": 2}, {"group": 2, "id": "proc\u00e8s-verbaux de r\u00e9unions ou visites lieux", "label": "proc\u00e8s-verbaux de r\u00e9unions ou visites lieux", "shape": "dot", "size": 2}, {"group": 2, "id": "programme pr\u00e9visionnel triennal des march\u00e9s", "label": "programme pr\u00e9visionnel triennal des march\u00e9s", "shape": "dot", "size": 2}, {"group": 2, "id": "publication de documents march\u00e9s publics", "label": "publication de documents march\u00e9s publics", "shape": "dot", "size": 2}, {"group": 2, "id": "publication de textes l\u00e9gislatifs et r\u00e9glementaires", "label": "publication de textes l\u00e9gislatifs et r\u00e9glementaires", "shape": "dot", "size": 3}, {"group": 2, "id": "s\u00e9curit\u00e9 technique et cryptographique", "label": "s\u00e9curit\u00e9 technique et cryptographique", "shape": "dot", "size": 2}, {"group": 2, "id": "veille sur l\u0027utilisation du portail", "label": "veille sur l\u0027utilisation du portail", "shape": "dot", "size": 2}, {"group": 2, "id": "pi\u00e8ces et documents", "label": "pi\u00e8ces et documents", "shape": "dot", "size": 3}, {"group": 2, "id": "points de contr\u00f4le", "label": "points de contr\u00f4le", "shape": "dot", "size": 3}]);
+                  edges = new vis.DataSet([{"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "arr\u00eat\u00e9", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "4 hija 1444 (23 juin 2023)", "title": "date d\u0027adoption", "to": "arr\u00eat\u00e9 n\u00b0 1692-23", "width": 1.0}, {"from": "achat", "title": "contextual proximity", "to": "acteurs portail des march\u00e9s publics", "width": 0.75}, {"from": "achat", "title": "condition ou modalit\u00e9", "to": "bons de commande", "width": 1.0}, {"from": "achat", "title": "contextual proximity", "to": "commission consultation", "width": 0.75}, {"from": "achat", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "achat", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "achat", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "acteur du portail", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "acteur du portail", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "acteur du portail", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "acteurs vis\u00e9s", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "comp\u00e9titeur", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "espace du concurrent", "width": 1.5}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "informations associ\u00e9es aux comptes", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "informations et documents publiques", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "informations juridiques, techniques et financi\u00e8res", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "mot de passe", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "nom de compte", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "nom de compte et mot de passe", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.25}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "services offerts par portail des march\u00e9s publics", "width": 0.75}, {"from": "acteurs du portail des march\u00e9s publics", "title": "contextual proximity", "to": "syst\u00e8me tiers", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "base de donn\u00e9es prestataires", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "bons de commande", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "commission consultation", "width": 2.25}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "commissions appels d\u0027offres", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "commissions n\u00e9gociation", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "concurrent", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "documents et pi\u00e8ces", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 2.25}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "gestion", "width": 1.5}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "interop\u00e9rabilit\u00e9", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "intervenants circuit march\u00e9s publics", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "ouverture plis \u00e9valuation offres concurrents", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "recours", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "syst\u00e8mes tiers", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "tenue et exploitation", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.75}, {"from": "acteurs portail des march\u00e9s publics", "title": "contextual proximity", "to": "\u00e9tude pr\u00e9alable projets dossiers consultations", "width": 0.75}, {"from": "acteurs vis\u00e9s", "title": "contextual proximity", "to": "espace du concurrent", "width": 0.5}, {"from": "acteurs vis\u00e9s", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "arr\u00eat\u00e9", "width": 0.5}, {"from": "adjudicataires de march\u00e9s publics", "title": "relation d\u0027acteurs dans le processus de march\u00e9s publics", "to": "soumissionnaires", "width": 1.0}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "auto-entrepreneurs", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "autorisation requise pour l\u0027exercice d\u0027une activit\u00e9", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "avis \u00e9manant d\u2019elle", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "bi-cl\u00e9s de chiffrement", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "certificats de qualification et de classification des entreprises", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "certificats d\u2019agr\u00e9ment relatif \u00e0 la ma\u00eetrise d\u2019\u0153uvre", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "commission nationale de la commande publique", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "composition et contenu des plis \u00e9lectroniques exig\u00e9s", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "coop\u00e9ratives", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "dossier de consultation pour recueillir leurs observations \u00e9ventuelles", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "d\u00e9p\u00f4t et retrait des plis et offres", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 3.0}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 2.25}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "tr\u00e8s petites, petites et moyennes entreprises", "width": 0.75}, {"from": "administrations habilit\u00e9es", "title": "contextual proximity", "to": "unions de coop\u00e9ratives", "width": 0.75}, {"from": "admissibilit\u00e9 des concurrents", "title": "gestion et renseignement des r\u00e9sultats,contextual proximity", "to": "commission de consultation", "width": 2.25}, {"from": "admissibilit\u00e9 des concurrents", "title": "contextual proximity", "to": "concourants", "width": 0.5}, {"from": "admissibilit\u00e9 des concurrents", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "admissibilit\u00e9 des concurrents", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "appels d\u0027offres", "title": "contextual proximity", "to": "bons de commande", "width": 0.5}, {"from": "appels d\u0027offres", "title": "contextual proximity", "to": "extraits", "width": 0.5}, {"from": "appels d\u0027offres", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "appels d\u0027offres", "title": "rel\u00e8vent de,contextual proximity", "to": "r\u00e9sultats", "width": 1.75}, {"from": "appels d\u0027offres", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "arr\u00eat\u00e9 n\u00b0 1692-23", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "avances en mati\u00e8re de march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "avis", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "commission nationale de la commande publique", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "contr\u00f4le des d\u00e9penses de l\u2019etat", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-03-195", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-07-129", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-15-05", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-20-06", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-20-100", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-07-1235", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-14-272", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-17-449", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-17-450", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-17-451", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-22-431", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9cret royal n\u00b0 330-66", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "modalit\u00e9s de gestion du portail des march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "publication d\u0027informations et documents sur le portail", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "r\u00e8glement de la comptabilit\u00e9 publique des communes et \u00e9tablissements de coop\u00e9ration intercommunale", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "r\u00e8glement de la comptabilit\u00e9 publique des pr\u00e9fectures et provinces", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "r\u00e8glement de la comptabilit\u00e9 publique des r\u00e9gions", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "r\u00e8glement g\u00e9n\u00e9ral de comptabilit\u00e9 publique", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "soumissionnaires", "width": 0.5}, {"from": "arr\u00eat\u00e9", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "arr\u00eat\u00e9 du ministre d\u00e9l\u00e9gu\u00e9", "title": "responsabilit\u00e9", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 1.0}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "arr\u00eat\u00e9 n\u00b0 1692-23", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "article 134", "title": "mention de dans", "to": "d\u00e9cret n\u00b0 2-22-431", "width": 1.0}, {"from": "article 134", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "article 134", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "article 134", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "attestation de caution personnelle et solidaire", "title": "contextual proximity", "to": "base de donn\u00e9es des prestataires", "width": 0.5}, {"from": "attestation de caution personnelle et solidaire", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "attributaire de l\u0027offre", "title": "contextual proximity", "to": "commission de consultation", "width": 1.25}, {"from": "attributaire de l\u0027offre", "title": "contextual proximity", "to": "concourants", "width": 0.5}, {"from": "attributaire de l\u0027offre", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "attributaire de l\u0027offre", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "auto-entrepreneurs", "title": "attribution,contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 2.0}, {"from": "auto-entrepreneurs", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "autorisation requise pour l\u0027exercice d\u0027une activit\u00e9", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "autorisation requise pour l\u0027exercice d\u0027une activit\u00e9", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "avances en mati\u00e8re de march\u00e9s publics", "title": "mention et incorporation", "to": "d\u00e9cret n\u00b0 2-14-272", "width": 1.0}, {"from": "avis", "title": "consultation et autorisation", "to": "commission nationale de la commande publique", "width": 1.0}, {"from": "avis d\u0027appel \u00e0 manifestation d\u0027int\u00e9r\u00eat", "title": "Publication pour recueillir l\u0027int\u00e9r\u00eat des entreprises potentielles,contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 2.75}, {"from": "avis d\u0027appel \u00e0 manifestation d\u0027int\u00e9r\u00eat", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "avis de publicit\u00e9 et rectificatifs", "title": "Diffusion des annonces et modifications concernant les offres,contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 2.75}, {"from": "avis de publicit\u00e9 et rectificatifs", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "avis des ench\u00e8res \u00e9lectroniques invers\u00e9es", "title": "Transmission des appels \u00e0 soumissionner en ligne avec processus invers\u00e9,contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 2.75}, {"from": "avis des ench\u00e8res \u00e9lectroniques invers\u00e9es", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "avis \u00e9manant d\u2019elle", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "avis \u00e9manant d\u2019elle", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "avis \u00e9manant d\u2019elle", "title": "publication", "to": "commission nationale de la commande publique", "width": 1.0}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "caution garantissant le remboursement de l\u0027avance", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "cautionnement d\u00e9finitif", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "cautionnement provisoire", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "cautions personnelles et solidaires", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "commissions d\u0027appels d\u0027offres", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "commissions de n\u00e9gociation", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "concurrent ou titulaire du march\u00e9", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "entrepreneurs, fournisseurs et prestataires de services", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 3.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "ministre charg\u00e9 des finances", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "organisme agr\u00e9\u00e9", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "base de donn\u00e9es des prestataires", "title": "contextual proximity", "to": "retenue de garantie", "width": 0.5}, {"from": "base de donn\u00e9es prestataires", "title": "contextual proximity", "to": "commission consultation", "width": 0.75}, {"from": "base de donn\u00e9es prestataires", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "base de donn\u00e9es prestataires", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "base de donn\u00e9es prestataires", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "base de donn\u00e9es prestataires", "title": "modalit\u00e9", "to": "tenue et exploitation", "width": 1.0}, {"from": "bi-cl\u00e9s de chiffrement", "title": "contextual proximity", "to": "commission de consultation", "width": 1.25}, {"from": "bi-cl\u00e9s de chiffrement", "title": "contextual proximity", "to": "concourants", "width": 0.5}, {"from": "bi-cl\u00e9s de chiffrement", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "bi-cl\u00e9s de chiffrement", "title": "d\u00e9finition conform\u00e9ment aux conditions d\u0027utilisation du portail,contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 1.75}, {"from": "bi-cl\u00e9s de chiffrement", "title": "utilisation pour consultation", "to": "plis \u00e9lectroniques", "width": 1.0}, {"from": "bi-cl\u00e9s de chiffrement", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "bi-cl\u00e9s de chiffrement", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "title": "contextual proximity", "to": "commission de consultation", "width": 1.25}, {"from": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "title": "contextual proximity", "to": "concourants", "width": 0.5}, {"from": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "title": "conditions d\u0027utilisation pour gestion,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.25}, {"from": "bi-cl\u00e9s de chiffrement et d\u00e9chiffrement", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "commission consultation", "width": 0.75}, {"from": "bons de commande", "title": "contextual proximity", "to": "concours", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "conventions et contrats", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "droit commun", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "bons de commande", "title": "contextual proximity", "to": "extraits", "width": 1.0}, {"from": "bons de commande", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "march\u00e9s n\u00e9goci\u00e9s", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "montant global", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "nombre", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 1.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "rapports d\u0027audit", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "rapports de contr\u00f4le", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 1.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "r\u00e9unions", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 1.0}, {"from": "bons de commande", "title": "contextual proximity", "to": "s\u00e9ances d\u0027examen", "width": 0.5}, {"from": "bons de commande", "title": "contextual proximity", "to": "visites", "width": 0.5}, {"from": "candidatures et offres \u00e9lectroniques", "title": "d\u00e9chiffrement,contextual proximity", "to": "commission de consultation", "width": 2.25}, {"from": "candidatures et offres \u00e9lectroniques", "title": "contextual proximity", "to": "concourants", "width": 0.5}, {"from": "candidatures et offres \u00e9lectroniques", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "candidatures et offres \u00e9lectroniques", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "caution garantissant le remboursement de l\u0027avance", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "cautionnement d\u00e9finitif", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "cautionnement provisoire", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "cautions personnelles et solidaires", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "certificat de signature \u00e9lectronique", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "certificat de signature \u00e9lectronique", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "certificat de signature \u00e9lectronique", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "certificats de qualification et de classification des entreprises", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "certificats de qualification et de classification des entreprises", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "certificats d\u2019agr\u00e9ment relatif \u00e0 la ma\u00eetrise d\u2019\u0153uvre", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "certificats d\u2019agr\u00e9ment relatif \u00e0 la ma\u00eetrise d\u2019\u0153uvre", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "chapitre ii", "title": "d\u00e9veloppement du sujet", "to": "gestion du portail des march\u00e9s publics", "width": 1.0}, {"from": "chapitre ii", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "chapitre ii", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "chapitre ii", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "commission consultation", "title": "contextual proximity", "to": "commissions appels d\u0027offres", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "commissions n\u00e9gociation", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "concurrent", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "documents et pi\u00e8ces", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 2.25}, {"from": "commission consultation", "title": "contextual proximity", "to": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "gestion", "width": 1.5}, {"from": "commission consultation", "title": "contextual proximity", "to": "interop\u00e9rabilit\u00e9", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "intervenants circuit march\u00e9s publics", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "ouverture plis \u00e9valuation offres concurrents", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "commission consultation", "title": "contextual proximity", "to": "recours", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "syst\u00e8mes tiers", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "tenue et exploitation", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.75}, {"from": "commission consultation", "title": "contextual proximity", "to": "\u00e9tude pr\u00e9alable projets dossiers consultations", "width": 0.75}, {"from": "commission de consultation", "title": "contextual proximity", "to": "concourants", "width": 2.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "concourants \u00e9limin\u00e9s", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "concurrent", "width": 4.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "discordances dans le dossier administratif", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "dispositions du d\u00e9cret n\u00b0 2-22-431", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "dispositions r\u00e9glementaires", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "documents ou donn\u00e9es", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-22-431", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "d\u00e9lai de validit\u00e9 des offres", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 1.0}, {"from": "commission de consultation", "title": "contextual proximity", "to": "offre la plus avantageuse", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "passation des march\u00e9s publics", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "plis des concurrents", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "plis d\u00e9pos\u00e9s", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "plis et offre", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "plis \u00e9lectroniques", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 6.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "prix unitaires principaux", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "rectifications des erreurs mat\u00e9rielles", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "width": 1.25}, {"from": "commission de consultation", "title": "contextual proximity", "to": "r\u00e9sultats d\u00e9finitifs", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "\u00e9chantillons ou prototypes", "width": 0.5}, {"from": "commission de consultation", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 2.5}, {"from": "commission nationale de la commande publique", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "commission nationale de la commande publique", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "commissions appels d\u0027offres", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "commissions appels d\u0027offres", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "commissions appels d\u0027offres", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "commissions d\u0027appels d\u0027offres", "title": "sont des instances concurrentes", "to": "commissions de n\u00e9gociation", "width": 1.0}, {"from": "commissions d\u0027appels d\u0027offres", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "commissions de n\u00e9gociation", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "commissions n\u00e9gociation", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "commissions n\u00e9gociation", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "commissions n\u00e9gociation", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "composition et contenu des plis \u00e9lectroniques exig\u00e9s", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "composition et contenu des plis \u00e9lectroniques exig\u00e9s", "title": "d\u00e9finition,contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 1.75}, {"from": "comptes utilisateurs", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 1.75}, {"from": "comptes utilisateurs", "title": "Cr\u00e9ation et gestion des comptes pour diff\u00e9rents acteurs,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.5}, {"from": "comp\u00e9titeur", "title": "contextual proximity", "to": "espace du concurrent", "width": 0.5}, {"from": "comp\u00e9titeur", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "concourants", "title": "contextual proximity", "to": "concourants \u00e9limin\u00e9s", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "documents ou donn\u00e9es", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "d\u00e9lai de validit\u00e9 des offres", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "passation des march\u00e9s publics", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "plis des concurrents", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "plis \u00e9lectroniques", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.5}, {"from": "concourants", "title": "contextual proximity", "to": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "width": 0.5}, {"from": "concourants", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "concourants \u00e9limin\u00e9s", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "concourants \u00e9limin\u00e9s", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "concours", "title": "contextual proximity", "to": "extraits", "width": 0.5}, {"from": "concours", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "concours", "title": "rel\u00e8vent de,contextual proximity", "to": "r\u00e9sultats", "width": 1.75}, {"from": "concours", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "concurrent", "title": "contextual proximity", "to": "discordances dans le dossier administratif", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "dispositions du d\u00e9cret n\u00b0 2-22-431", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "dispositions r\u00e9glementaires", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "d\u00e9cret n\u00b0 2-22-431", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "d\u00e9matisation", "width": 0.75}, {"from": "concurrent", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "concurrent", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 4.5}, {"from": "concurrent", "title": "contextual proximity", "to": "offre la plus avantageuse", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "plis d\u00e9pos\u00e9s", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "plis et offre", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "concurrent", "title": "contextual proximity", "to": "prix unitaires principaux", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "rectifications des erreurs mat\u00e9rielles", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "r\u00e9sultats d\u00e9finitifs", "width": 2.25}, {"from": "concurrent", "title": "contextual proximity", "to": "\u00e9chantillons ou prototypes", "width": 2.25}, {"from": "concurrent ou titulaire du march\u00e9", "title": "sont exig\u00e9es par la l\u00e9gislation et la r\u00e9glementation en vigueur,contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 2.75}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "d\u00e9p\u00f4t par voie \u00e9lectronique", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "informations et documents", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "l\u0027ouverture des plis", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 1.0}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 1.0}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 1.0}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 1.0}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "ouverture des plis", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "ouverture et \u00e9valuation", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 1.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 0.5}, {"from": "conditions et modalit\u00e9s", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "contr\u00f4le des d\u00e9penses de l\u2019etat", "title": "mention et incorporation", "to": "d\u00e9cret n\u00b0 2-07-1235", "width": 1.0}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "contr\u00f4le financier de l\u0027\u00e9tat sur les entreprises publiques et autres organismes", "title": "r\u00e9glementation,contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.5}, {"from": "conventions et contrats", "title": "appartiennent \u00e0", "to": "droit commun", "width": 1.0}, {"from": "conventions et contrats", "title": "contextual proximity", "to": "extraits", "width": 0.5}, {"from": "conventions et contrats", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "conventions et contrats", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "conventions et contrats", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "coop\u00e9ratives", "title": "attribution,contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 2.0}, {"from": "coop\u00e9ratives", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "dahir n\u00b0 1-03-195", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "dahir n\u00b0 1-07-129", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "dahir n\u00b0 1-15-05", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "dahir n\u00b0 1-20-06", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "dahir n\u00b0 1-56-211", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "dahir n\u00b0 1-20-100", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 1.0}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 1.0}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 1.0}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 1.0}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "dahir n\u00b0 1-56-211", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "discordances dans le dossier administratif", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 0.5}, {"from": "dispositif de cr\u00e9ation et gestion des comptes", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 1.75}, {"from": "dispositif de cr\u00e9ation et gestion des comptes", "title": "Mise en place du syst\u00e8me d\u0027inscription pour acteurs et utilisateurs,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.5}, {"from": "dispositions du d\u00e9cret n\u00b0 2-22-431", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 0.5}, {"from": "dispositions r\u00e9glementaires", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 0.5}, {"from": "dispositions r\u00e9glementaires", "title": "r\u00e8glementation des actions", "to": "d\u00e9cret n\u00b0 2-22-431", "width": 1.0}, {"from": "documents et pi\u00e8ces", "title": "condition ou modalit\u00e9,contextual proximity", "to": "d\u00e9matisation", "width": 1.75}, {"from": "documents et pi\u00e8ces", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "documents et pi\u00e8ces", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "documents ou donn\u00e9es", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "documents ou donn\u00e9es", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "documents ou donn\u00e9es", "title": "traitement et gestion par le portail", "to": "passation des march\u00e9s publics", "width": 1.0}, {"from": "dossier de consultation pour recueillir leurs observations \u00e9ventuelles", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "dossier de consultation pour recueillir leurs observations \u00e9ventuelles", "title": "soumission au portail,contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 1.75}, {"from": "dossiers d\u0027appel \u00e0 la concurrence", "title": "Publication et mise \u00e0 jour des documents pour invitation \u00e0 tender,contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 2.75}, {"from": "dossiers d\u0027appel \u00e0 la concurrence", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "droit commun", "title": "contextual proximity", "to": "extraits", "width": 0.5}, {"from": "droit commun", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "droit commun", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "droit commun", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "d\u00e9cret n\u00b0 2-17-449", "title": "mention et incorporation", "to": "r\u00e8glement de la comptabilit\u00e9 publique des r\u00e9gions", "width": 1.0}, {"from": "d\u00e9cret n\u00b0 2-17-450", "title": "mention et incorporation", "to": "r\u00e8glement de la comptabilit\u00e9 publique des pr\u00e9fectures et provinces", "width": 1.0}, {"from": "d\u00e9cret n\u00b0 2-17-451", "title": "mention et incorporation", "to": "r\u00e8glement de la comptabilit\u00e9 publique des communes et \u00e9tablissements de coop\u00e9ration intercommunale", "width": 1.0}, {"from": "d\u00e9cret n\u00b0 2-22-431", "title": "mention et incorporation", "to": "march\u00e9s publics", "width": 1.0}, {"from": "d\u00e9cret n\u00b0 2-22-431", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 0.5}, {"from": "d\u00e9cret n\u00b0 2-22-431", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "d\u00e9cret n\u00b0 2-22-431", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "d\u00e9cret n\u00b0 2-22-431", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "d\u00e9cret royal n\u00b0 330-66", "title": "mention et incorporation", "to": "r\u00e8glement g\u00e9n\u00e9ral de comptabilit\u00e9 publique", "width": 1.0}, {"from": "d\u00e9lai de validit\u00e9 des offres", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "d\u00e9lai de validit\u00e9 des offres", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "gestion", "width": 1.5}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "interop\u00e9rabilit\u00e9", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "intervenants circuit march\u00e9s publics", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "ouverture plis \u00e9valuation offres concurrents", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "recours", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "syst\u00e8mes tiers", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "tenue et exploitation", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.75}, {"from": "d\u00e9matisation", "title": "contextual proximity", "to": "\u00e9tude pr\u00e9alable projets dossiers consultations", "width": 0.75}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "d\u00e9mat\u00e9rialisation des garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "d\u00e9mat\u00e9rialisation des proc\u00e9dures, documents et pi\u00e8ces relatifs aux march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "d\u00e9p\u00f4t et retrait des plis et offres", "title": "contextual proximity", "to": "march\u00e9s publics attribu\u00e9s", "width": 1.0}, {"from": "d\u00e9p\u00f4t et retrait des plis et offres", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.75}, {"from": "d\u00e9p\u00f4t et retrait des plis et offres", "title": "permet", "to": "portail des march\u00e9s publics", "width": 1.0}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 0.5}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 0.5}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 0.5}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 0.5}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "d\u00e9p\u00f4t par voie \u00e9lectronique", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "title": "contextual proximity", "to": "gestion", "width": 0.5}, {"from": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "ench\u00e8res \u00e9lectroniques invers\u00e9es", "title": "condition ou modalit\u00e9", "to": "recours", "width": 1.0}, {"from": "entrepreneurs, fournisseurs et prestataires de services", "title": "contextual proximity", "to": "garanties p\u00e9cuniaires", "width": 1.75}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "informations associ\u00e9es aux comptes", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "informations et documents publiques", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "informations juridiques, techniques et financi\u00e8res", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "mot de passe", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "nom de compte", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "nom de compte et mot de passe", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "services offerts par portail des march\u00e9s publics", "width": 0.5}, {"from": "espace du concurrent", "title": "contextual proximity", "to": "syst\u00e8me tiers", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "march\u00e9s n\u00e9goci\u00e9s", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "montant global", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "nombre", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 1.5}, {"from": "extraits", "title": "contextual proximity", "to": "rapports d\u0027audit", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "rapports de contr\u00f4le", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 1.5}, {"from": "extraits", "title": "contextual proximity", "to": "r\u00e9unions", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 1.0}, {"from": "extraits", "title": "contextual proximity", "to": "s\u00e9ances d\u0027examen", "width": 0.5}, {"from": "extraits", "title": "contextual proximity", "to": "visites", "width": 0.5}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "ministre charg\u00e9 des finances", "width": 1.75}, {"from": "garanties p\u00e9cuniaires", "title": " Trait\u00e9 par,contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 1.5}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 0.5}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 0.5}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 0.5}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "organisme agr\u00e9\u00e9", "width": 1.75}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.0}, {"from": "garanties p\u00e9cuniaires", "title": "est une forme de garantie p\u00e9cuniaire,contextual proximity", "to": "retenue de garantie", "width": 2.75}, {"from": "garanties p\u00e9cuniaires", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 112-13", "width": 0.5}, {"from": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 0.5}, {"from": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 0.5}, {"from": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 0.5}, {"from": "garanties p\u00e9cuniaires des soumissionnaires et adjudicataires de march\u00e9s publics", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "interop\u00e9rabilit\u00e9", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "intervenants circuit march\u00e9s publics", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "ouverture plis \u00e9valuation offres concurrents", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "width": 0.5}, {"from": "gestion", "title": "relation par\u7684\u4f5c\u7528,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.0}, {"from": "gestion", "title": "contextual proximity", "to": "recours", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "syst\u00e8mes tiers", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "tenue et exploitation", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "gestion", "title": "contextual proximity", "to": "\u00e9tude pr\u00e9alable projets dossiers consultations", "width": 0.5}, {"from": "gestion des certificats \u00e9lectroniques", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 1.75}, {"from": "gestion des certificats \u00e9lectroniques", "title": "Mise en \u0153uvre pour usage des ma\u00eetres d\u0027\u0153uvre selon les conditions,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.5}, {"from": "gestion du portail des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "gestion du portail des march\u00e9s publics", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "gestion du portail des march\u00e9s publics", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "gestionnaire du portail des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "gestionnaire du portail des march\u00e9s publics", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "gestionnaire du portail des march\u00e9s publics", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "informations associ\u00e9es aux comptes", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "informations et documents", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 0.5}, {"from": "informations et documents", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 0.5}, {"from": "informations et documents", "title": " Publi\u00e9 sur,contextual proximity", "to": "modalit\u00e9s de publication", "width": 1.5}, {"from": "informations et documents", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 0.5}, {"from": "informations et documents", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "informations et documents", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "informations et documents publiques", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "informations juridiques, techniques et financi\u00e8res", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "infrastructure technique", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "infrastructure technique", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "infrastructure technique", "title": "h\u00e9bergeur de l\u0027,contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 1.5}, {"from": "interop\u00e9rabilit\u00e9", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "interop\u00e9rabilit\u00e9", "title": "condition ou modalit\u00e9", "to": "syst\u00e8mes tiers", "width": 1.0}, {"from": "intervenants circuit march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "width": 0.5}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 0.5}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 0.5}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 0.5}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "l\u0027ouverture des plis", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "loi n\u00b0 43-20", "width": 1.0}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 1.0}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 1.0}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "loi n\u00b0 112-13", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "loi n\u00b0 53-05", "width": 1.0}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 1.0}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "loi n\u00b0 43-20", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "loi n\u00b0 55-19", "width": 1.0}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "loi n\u00b0 53-05", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "loi n\u00b0 69-00", "width": 1.0}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "loi n\u00b0 55-19", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "loi n\u00b0 69-00", "title": "contextual proximity", "to": "ministre de l\u0027\u00e9conomie et des finances", "width": 0.5}, {"from": "loi n\u00b0 69-00", "title": "contextual proximity", "to": "nantissement des march\u00e9s publics", "width": 0.5}, {"from": "loi n\u00b0 69-00", "title": "contextual proximity", "to": "services de confiance pour les transactions \u00e9lectroniques", "width": 0.5}, {"from": "loi n\u00b0 69-00", "title": "contextual proximity", "to": "simplification des proc\u00e9dures et formalit\u00e9s administratives", "width": 0.5}, {"from": "loi n\u00b0 69-00", "title": "contextual proximity", "to": "\u00e9change \u00e9lectronique des donn\u00e9es juridiques", "width": 0.5}, {"from": "maintenance pr\u00e9ventive et \u00e9volutive", "title": "contextual proximity", "to": "ma\u00eetre d\u2019ouvrage", "width": 1.75}, {"from": "maintenance pr\u00e9ventive et \u00e9volutive", "title": "Services fournis pour maintenir le portail,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.5}, {"from": "march\u00e9s n\u00e9goci\u00e9s", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "march\u00e9s n\u00e9goci\u00e9s", "title": "rel\u00e8vent de,contextual proximity", "to": "r\u00e9sultats", "width": 1.75}, {"from": "march\u00e9s n\u00e9goci\u00e9s", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "march\u00e9s publics attribu\u00e9s", "title": "contextual proximity", "to": "ma\u00eetre d\u0027\u0153uvre", "width": 3.0}, {"from": "march\u00e9s publics attribu\u00e9s", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.0}, {"from": "march\u00e9s publics attribu\u00e9s", "title": "contextual proximity", "to": "tr\u00e8s petites, petites et moyennes entreprises", "width": 1.0}, {"from": "march\u00e9s publics attribu\u00e9s", "title": "contextual proximity", "to": "unions de coop\u00e9ratives", "width": 1.0}, {"from": "ma\u00eetre d\u0027\u0153uvre", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "ma\u00eetre d\u0027\u0153uvre", "title": "contextual proximity", "to": "tr\u00e8s petites, petites et moyennes entreprises", "width": 0.75}, {"from": "ma\u00eetre d\u0027\u0153uvre", "title": "contextual proximity", "to": "unions de coop\u00e9ratives", "width": 0.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "offre la plus avantageuse", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "plis d\u00e9pos\u00e9s", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "plis et offre", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 10.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "prix unitaires principaux", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "proc\u00e8s-verbaux de r\u00e9unions ou visites lieux", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "programme pr\u00e9visionnel triennal des march\u00e9s", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "publication de documents march\u00e9s publics", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "publication de textes l\u00e9gislatifs et r\u00e9glementaires", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "rectifications des erreurs mat\u00e9rielles", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "r\u00e9sultats d\u00e9finitifs", "width": 0.5}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "s\u00e9curit\u00e9 technique et cryptographique", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "veille sur l\u0027utilisation du portail", "width": 1.75}, {"from": "ma\u00eetre d\u2019ouvrage", "title": "contextual proximity", "to": "\u00e9chantillons ou prototypes", "width": 0.5}, {"from": "ministre charg\u00e9 des finances", "title": "est autoris\u00e9 par le ministre \u00e0 d\u00e9livrer garanties p\u00e9cuniaires", "to": "organisme agr\u00e9\u00e9", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "modalit\u00e9s de d\u00e9p\u00f4t", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "ouverture des plis", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "ouverture et \u00e9valuation", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 1.5}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9mat\u00e9rialisation", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "modalit\u00e9s de publication", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 1.0}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "ouverture des plis", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "ouverture et \u00e9valuation", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 1.5}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 0.5}, {"from": "modalit\u00e9s de d\u00e9p\u00f4t", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "modalit\u00e9s de retrait", "width": 1.0}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "ouverture des plis", "width": 0.5}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "ouverture et \u00e9valuation", "width": 0.5}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 1.5}, {"from": "modalit\u00e9s de publication", "title": " H\u00e9bergeur de,contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 0.5}, {"from": "modalit\u00e9s de publication", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "modalit\u00e9s de retrait", "title": "contextual proximity", "to": "ouverture des plis", "width": 0.5}, {"from": "modalit\u00e9s de retrait", "title": "contextual proximity", "to": "ouverture et \u00e9valuation", "width": 0.5}, {"from": "modalit\u00e9s de retrait", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 1.5}, {"from": "modalit\u00e9s de retrait", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "modalit\u00e9s de retrait", "title": " M\u00e9thode de,contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 1.5}, {"from": "modalit\u00e9s de retrait", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.0}, {"from": "montant global", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "montant global", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "montant global", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "mot de passe", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "mot de passe", "title": "attribu\u00e9s ensemble", "to": "nom de compte", "width": 1.0}, {"from": "nantissement des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "nom de compte", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "nom de compte et mot de passe", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "nombre", "title": "contextual proximity", "to": "proc\u00e8s-verbaux", "width": 0.75}, {"from": "nombre", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "nombre", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "ouverture des plis", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "ouverture des plis", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "ouverture et \u00e9valuation", "title": "contextual proximity", "to": "plis et offres des concurrents", "width": 0.75}, {"from": "ouverture et \u00e9valuation", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "ouverture plis \u00e9valuation offres concurrents", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.5}, {"from": "passation des march\u00e9s publics", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "passation des march\u00e9s publics", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "pi\u00e8ces et documents", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "pi\u00e8ces et documents", "title": "signature de,contextual proximity", "to": "signature \u00e9lectronique", "width": 1.75}, {"from": "pi\u00e8ces et documents", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "plateforme nationale d\u00e9mat\u00e9rialisation proc\u00e9dures passation march\u00e9 public", "title": "d\u00e9finition,contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.5}, {"from": "plis des concurrents", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "plis des concurrents", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "plis et offres des concurrents", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 0.75}, {"from": "plis et offres des concurrents", "title": "contextual proximity", "to": "retrait par voie \u00e9lectronique", "width": 0.75}, {"from": "plis et offres des concurrents", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 1.5}, {"from": "plis \u00e9lectroniques", "title": "contextual proximity", "to": "portail des march\u00e9s publics", "width": 1.25}, {"from": "plis \u00e9lectroniques", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "points de contr\u00f4le", "title": "acc\u00e8s aux pour v\u00e9rification,contextual proximity", "to": "portail des march\u00e9s publics", "width": 2.25}, {"from": "points de contr\u00f4le", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 0.75}, {"from": "points de contr\u00f4le", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 0.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "proc\u00e8s-verbaux de r\u00e9unions ou visites lieux", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "programme pr\u00e9visionnel triennal des march\u00e9s", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "publication de documents march\u00e9s publics", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "publication de textes l\u00e9gislatifs et r\u00e9glementaires", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "recours", "width": 0.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "width": 1.25}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "services offerts par portail des march\u00e9s publics", "width": 0.75}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "signature \u00e9lectronique", "width": 3.75}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "syst\u00e8me tiers", "width": 0.75}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "syst\u00e8mes tiers", "width": 0.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "s\u00e9curit\u00e9 technique et cryptographique", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "tenue et exploitation", "width": 0.5}, {"from": "portail des march\u00e9s publics", "title": "gestionnaire d\u00e9sign\u00e9 de,contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 5.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "veille sur l\u0027utilisation du portail", "width": 1.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "\u00e9tude pr\u00e9alable projets dossiers consultations", "width": 0.5}, {"from": "portail des march\u00e9s publics", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 3.0}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "rapports d\u0027audit", "width": 0.75}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "rapports de contr\u00f4le", "width": 0.75}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 2.25}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "r\u00e9unions", "width": 0.75}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 1.5}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "s\u00e9ances d\u0027examen", "width": 0.75}, {"from": "proc\u00e8s-verbaux", "title": "contextual proximity", "to": "visites", "width": 0.75}, {"from": "publication de textes l\u00e9gislatifs et r\u00e9glementaires", "title": "Responsabilit\u00e9 en tant qu\u0027organisme pour diffusion des documents l\u00e9gaux", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 1.0}, {"from": "rapports d\u0027audit", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "rapports d\u0027audit", "title": "repr\u00e9sentent,contextual proximity", "to": "synth\u00e8ses", "width": 1.5}, {"from": "rapports de contr\u00f4le", "title": "contextual proximity", "to": "r\u00e9sultats", "width": 0.75}, {"from": "rapports de contr\u00f4le", "title": "repr\u00e9sentent,contextual proximity", "to": "synth\u00e8ses", "width": 1.5}, {"from": "retrait par voie \u00e9lectronique", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "r\u00e9sultat de la s\u00e9ance d\u0027ouverture", "title": "contextual proximity", "to": "\u00e9valuation des offres", "width": 0.5}, {"from": "r\u00e9sultats", "title": "contextual proximity", "to": "r\u00e9unions", "width": 0.75}, {"from": "r\u00e9sultats", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 1.5}, {"from": "r\u00e9sultats", "title": "contextual proximity", "to": "s\u00e9ances d\u0027examen", "width": 0.75}, {"from": "r\u00e9sultats", "title": "contextual proximity", "to": "visites", "width": 0.75}, {"from": "r\u00e9unions", "title": "contextual proximity", "to": "synth\u00e8ses", "width": 0.5}, {"from": "signature \u00e9lectronique", "title": "contextual proximity", "to": "tr\u00e9sorerie g\u00e9n\u00e9rale du royaume", "width": 1.5}, {"from": "synth\u00e8ses", "title": "contextual proximity", "to": "s\u00e9ances d\u0027examen", "width": 0.5}, {"from": "synth\u00e8ses", "title": "contextual proximity", "to": "visites", "width": 0.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.015,
+            "damping": 0.4,
+            "gravitationalConstant": -31,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,4913 @@
+
+node_1	node_2	chunk_id	count	edge
+402	tenue et exploitation	portail des marchés publics	e6a32a85587e455ba096fe6cd6d720d5,e6a32a85587e4...	2	contextual proximity
+407	étude préalable des projets de dossiers de con...	acteurs du portail des marchés publics	e6a32a85587e455ba096fe6cd6d720d5,e6a32a85587e4...	2	contextual proximity
+410	étude préalable des projets de dossiers de con...	commission de consultation	e6a32a85587e455ba096fe6cd6d720d5,e6a32a85587e4...	2	contextual proximity
+413	étude préalable des projets de dossiers de con...	dématérialisation	e6a32a85587e455ba096fe6cd6d720d5,e6a32a85587e4...	3	contextual proximity
+422	étude préalable des projets de dossiers de con...	portail des marchés publics	e6a32a85587e455ba096fe6cd6d720d5,e6a32a85587e4...	2	contextual proximity
+ ```json
+[
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Délégation du budget",
+        "edge": "est promulgué par"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Dématerialisation des procédures, des documents et des pièces relatifs aux marchés publics",
+        "edge": "concerne"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 112-13 relative au nantissement des marchés publics",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 43-20 relative aux services de confiance pour les transactions électroniques",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 53-05 relative à l’échange électronique des données juridiques",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 55-19 relative à la simplification des procédures et formalités administratives",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 69-00 relative au contrôle financier de l’Etat sur les entreprises publiques et autres organismes",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Dahir n° 1-56-211 relatif aux garanties pécuniaires des soumissionnaires et adjudicataires de marchés publics",
+        "edge": "se réfère à"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Délégation du budget",
+        "edge": "est promulgué par"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Dématerialisation des procédures, des documents et des pièces relatifs aux marchés publics",
+        "edge": "concerne"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 112-13 relative au nantissement des marchés publics",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 43-20 relative aux services de confiance pour les transactions électroniques",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 53-05 relative à l’échange électronique des données juridiques",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 55-19 relative à la simplification des procédures et formalités administratives",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Loi n° 69-00 relative au contrôle financier de l’Etat sur les entreprises publiques et autres organismes",
+        "edge": "se réfère à"
+    },
+    {
+        "node_1": "Arrêté du ministre délégué auprès de la ministre de l’économie et des finances, chargé du budget n° 1692 -23",
+        "node_2": "Dahir n° 1-56-211 relatif aux garanties pécuniaires des soumissionnaires et adjudicataires de marchés publics",
+        "edge": "se réfère à"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "soumissionnaires",
+       "node_2": "adjudicataires",
+       "edge": "appartenance_à_la_même_catégorie"
+   },
+   {
+       "node_1": "décret Royal n° 330-66 du 10 moharrem 1387 (21 avril  1967)",
+       "node_2": "règlement général de comptabilité publique",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-07-1235 du 5 kaada 1429 (4 novembre 2008)",
+       "node_2": "contrôle des dépenses de l’Etat",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-14-272 du 14 rejeb 1435 (14 mai 2014)",
+       "node_2": "avances en matière de marchés publics",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-449 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des régions et de leurs groupements",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-450 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des préfectures et des provinces et de leurs groupements",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-451 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des communes et des établissements de coopération intercommunale",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-22-431 du 15 chaabane 1444 (8 mars 2023)",
+       "node_2": "marchés publics",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "ARRÊTE",
+       "node_2": "Trésorerie générale du Royaume",
+       "edge": "responsable_de"
+   },
+   {
+       "node_1": "ARRÊTE",
+       "node_2": "portail des marchés publics",
+       "edge": "concerne"
+   },
+   {
+       "node_1": "Commission nationale de la commande publique",
+       "node_2": "avis",
+       "edge": "émettre"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "soumissionnaires",
+       "node_2": "adjudicataires",
+       "edge": "appartenance_à_la_même_catégorie"
+   },
+   {
+       "node_1": "décret Royal n° 330-66 du 10 moharrem 1387 (21 avril  1967)",
+       "node_2": "règlement général de comptabilité publique",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-07-1235 du 5 kaada 1429 (4 novembre 2008)",
+       "node_2": "contrôle des dépenses de l’Etat",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-14-272 du 14 rejeb 1435 (14 mai 2014)",
+       "node_2": "avances en matière de marchés publics",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-449 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des régions et de leurs groupements",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-450 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des préfectures et des provinces et de leurs groupements",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-17-451 du 4 rabii I 1439 (23 novembre 2017)",
+       "node_2": "règlement de la comptabilité publique des communes et des établissements de coopération intercommunale",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "décret n° 2-22-431 du 15 chaabane 1444 (8 mars 2023)",
+       "node_2": "marchés publics",
+       "edge": "relatif_à"
+   },
+   {
+       "node_1": "ARRÊTE",
+       "node_2": "Trésorerie générale du Royaume",
+       "edge": "responsable_de"
+   },
+   {
+       "node_1": "ARRÊTE",
+       "node_2": "portail des marchés publics",
+       "edge": "concerne"
+   },
+   {
+       "node_1": "Commission nationale de la commande publique",
+       "node_2": "avis",
+       "edge": "émettre"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "modalités de publication",
+        "node_2": "informations et documents",
+        "edge": "publication"
+    },
+    {
+        "node_1": "modalités de publication",
+        "node_2": "portail des marchés publics",
+        "edge": "lié à"
+    },
+    {
+        "node_1": "conditions et modalités de dépôt",
+        "node_2": "plis et offres",
+        "edge": "définir"
+    },
+    {
+        "node_1": "conditions et modalités de dépôt",
+        "node_2": "voie électronique",
+        "edge": "par"
+    },
+    {
+        "node_1": "modalités de dématérialisation",
+        "node_2": "garanties pécuniaires",
+        "edge": "concernant"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "plis et offres",
+        "edge": "régir"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "évaluation des offres",
+        "edge": "inclure"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "voie électronique",
+        "edge": "par"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "modalités de publication",
+        "node_2": "informations et documents",
+        "edge": "publication"
+    },
+    {
+        "node_1": "modalités de publication",
+        "node_2": "portail des marchés publics",
+        "edge": "lié à"
+    },
+    {
+        "node_1": "conditions et modalités de dépôt",
+        "node_2": "plis et offres",
+        "edge": "définir"
+    },
+    {
+        "node_1": "conditions et modalités de dépôt",
+        "node_2": "voie électronique",
+        "edge": "par"
+    },
+    {
+        "node_1": "modalités de dématérialisation",
+        "node_2": "garanties pécuniaires",
+        "edge": "concernant"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "plis et offres",
+        "edge": "régir"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "évaluation des offres",
+        "edge": "inclure"
+    },
+    {
+        "node_1": "conditions et modalités de l’ouverture",
+        "node_2": "voie électronique",
+        "edge": "par"
+    }
+]
+``` 
+
+
+ [
+    {
+        "node_1": "recours",
+        "node_2": "enchères électroniques inversées",
+        "edge": "conditions et modalités de mise en œuvre"
+    },
+    {
+        "node_1": "achat",
+        "node_2": "bons de commande par voie électronique",
+        "edge": "conditions et modalités"
+    },
+    {
+        "node_1": "nantissement des marchés publics",
+        "node_2": "dématérialisation",
+        "edge": "conditions et modalités"
+    },
+    {
+        "node_1": "systèmes tiers",
+        "node_2": "interopérabilité",
+        "edge": "conditions et modalités de dématérialisation"
+    },
+    {
+        "node_1": "documents et pièces",
+        "node_2": "dématérialisation",
+        "edge": "conditions et modalités"
+    },
+    {
+        "node_1": "étude préalable des projets de dossiers de consultations",
+        "node_2": "dématérialisation",
+        "edge": "modalités"
+    },
+    {
+        "node_1": "base de données des prestataires",
+        "node_2": "tenue et exploitation",
+        "edge": "modalités"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "plateforme nationale de dématérialisation des procédures de passation des marchés publics",
+        "edge": "définition"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "gestion",
+        "edge": "assurée par la Trésorerie générale du Royaume"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "intervenants dans le circuit des marchés publics",
+        "edge": "directement ou indirectement"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "maître d’ouvrage, concurrent, titulaire du marché, agent chargé du contrôle, comptable public, personne chargée du paiement, organisme agréé, agents dûment habilités",
+        "edge": "exemples de rôles"
+    },
+    {
+        "node_1": "commission de consultation",
+        "node_2": "ouverture des plis et évaluation des offres des concurrents",
+        "edge": "chargée de"
+    },
+    {
+        "node_1": "commission de consultation",
+        "node_2": "commissions d’appels d’offres et commissions de négociation",
+        "edge": "inclut notamment"
+    }
+] ```json
+[
+   {
+       "node_1": "concurrents",
+       "node_2": "commissions d’appels d’offres",
+       "edge": "est un groupe de"
+   },
+   {
+       "node_1": "concurrents",
+       "node_2": "commissions de négociation",
+       "edge": "est un groupe de"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautionnement provisoire",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "attestation de la caution personnelle et solidaire en tenant lieu",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautionnement définitif",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "retenue de garantie",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautions personnelles et solidaires qui les remplacent",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "caution garantissant le remboursement de l’avance consentie par le maître d’ouvrage",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "organisme agréé",
+       "node_2": "garanties pécuniaires",
+       "edge": "autorisé à délivrer"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "entrepreneurs",
+       "edge": "enregistre"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "fournisseurs",
+       "edge": "enregistre"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "prestataires de services",
+       "edge": "enregistre"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "concurrents",
+       "node_2": "commissions d’appels d’offres",
+       "edge": "est un groupe de"
+   },
+   {
+       "node_1": "concurrents",
+       "node_2": "commissions de négociation",
+       "edge": "est un groupe de"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautionnement provisoire",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "attestation de la caution personnelle et solidaire en tenant lieu",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautionnement définitif",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "retenue de garantie",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "cautions personnelles et solidaires qui les remplacent",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "garanties pécuniaires",
+       "node_2": "caution garantissant le remboursement de l’avance consentie par le maître d’ouvrage",
+       "edge": "inclut"
+   },
+   {
+       "node_1": "organisme agréé",
+       "node_2": "garanties pécuniaires",
+       "edge": "autorisé à délivrer"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "entrepreneurs",
+       "edge": "enregistre"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "fournisseurs",
+       "edge": "enregistre"
+   },
+   {
+       "node_1": "base de données des prestataires",
+       "node_2": "prestataires de services",
+       "edge": "enregistre"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "système tiers",
+        "node_2": "plateforme informatique ou système d’informations externes au portail des marchés publics",
+        "edge": "intégration"
+    },
+    {
+        "node_1": "documents ou données",
+        "node_2": "concurrents participant aux marchés publics",
+        "edge": "se rapportent à"
+    },
+    {
+        "node_1": "acteurs visés au paragraphe b) de l’article 2 ci-dessus",
+        "node_2": "portail des marchés publics",
+        "edge": "accèdent à"
+    },
+    {
+        "node_1": "nom de compte et mot de passe",
+        "node_2": "acteurs du portail des marchés publics",
+        "edge": "attribué à"
+    },
+    {
+        "node_1": "modalités d’inscription",
+        "node_2": "nom de compte et mot de passe",
+        "edge": "publiées pour"
+    },
+    {
+        "node_1": "concurrent inscrit au portail des marchés publics",
+        "node_2": "espace dans la base de données des prestataires",
+        "edge": "dispose de"
+    },
+    {
+        "node_1": "espace dans la base de données des prestataires",
+        "node_2": "informations relatives à ses capacités juridiques, techniques et financières",
+        "edge": "comporte"
+    },
+    {
+        "node_1": "espace dans la base de données des prestataires",
+        "node_2": "services offerts par le portail des marchés publics",
+        "edge": "comporte également"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "nom de compte et mot de passe attribués",
+        "edge": "sont responsables de l’usage de"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "informations et documents publiés ou échangés via le portail",
+        "edge": "sont responsables de"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "système tiers",
+        "node_2": "plateforme informatique ou système d’informations externes au portail des marchés publics",
+        "edge": "intégration"
+    },
+    {
+        "node_1": "documents ou données",
+        "node_2": "concurrents participant aux marchés publics",
+        "edge": "se rapportent à"
+    },
+    {
+        "node_1": "acteurs visés au paragraphe b) de l’article 2 ci-dessus",
+        "node_2": "portail des marchés publics",
+        "edge": "accèdent à"
+    },
+    {
+        "node_1": "nom de compte et mot de passe",
+        "node_2": "acteurs du portail des marchés publics",
+        "edge": "attribué à"
+    },
+    {
+        "node_1": "modalités d’inscription",
+        "node_2": "nom de compte et mot de passe",
+        "edge": "publiées pour"
+    },
+    {
+        "node_1": "concurrent inscrit au portail des marchés publics",
+        "node_2": "espace dans la base de données des prestataires",
+        "edge": "dispose de"
+    },
+    {
+        "node_1": "espace dans la base de données des prestataires",
+        "node_2": "informations relatives à ses capacités juridiques, techniques et financières",
+        "edge": "comporte"
+    },
+    {
+        "node_1": "espace dans la base de données des prestataires",
+        "node_2": "services offerts par le portail des marchés publics",
+        "edge": "comporte également"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "nom de compte et mot de passe attribués",
+        "edge": "sont responsables de l’usage de"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "informations et documents publiés ou échangés via le portail",
+        "edge": "sont responsables de"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "gestionnaire du portail des marchés publics",
+       "node_2": "portail des marchés publics",
+       "edge": "prise en charge"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "pièces et documents",
+       "edge": "effectuée via"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "certificat de signature électronique",
+       "edge": "utilise"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "textes législatifs et réglementaires en vigueur",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "conditions d’utilisation du portail des marchés publics",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "acteur du portail concerné",
+       "node_2": "points de contrôle accessibles au niveau du portail",
+       "edge": "doit utiliser pour revérifier la validité de la signature électronique"
+   },
+   {
+       "node_1": "portail des marchés publics",
+       "node_2": "Trésorerie générale du Royaume",
+       "edge": "géré par"
+   },
+   {
+       "node_1": "Trésorerie générale du Royaume",
+       "node_2": "gestionnaire du portail des marchés publics",
+       "edge": "désignée comme"
+   },
+   {
+       "node_1": "gestionnaire du portail des marchés publics",
+       "node_2": "hébergement de l’infrastructure technique (matériel et logiciels) du portail",
+       "edge": "chargé de"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "gestionnaire du portail des marchés publics",
+       "node_2": "portail des marchés publics",
+       "edge": "prise en charge"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "pièces et documents",
+       "edge": "effectuée via"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "certificat de signature électronique",
+       "edge": "utilise"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "textes législatifs et réglementaires en vigueur",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "signature électronique",
+       "node_2": "conditions d’utilisation du portail des marchés publics",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "acteur du portail concerné",
+       "node_2": "points de contrôle accessibles au niveau du portail",
+       "edge": "doit utiliser pour revérifier la validité de la signature électronique"
+   },
+   {
+       "node_1": "portail des marchés publics",
+       "node_2": "Trésorerie générale du Royaume",
+       "edge": "géré par"
+   },
+   {
+       "node_1": "Trésorerie générale du Royaume",
+       "node_2": "gestionnaire du portail des marchés publics",
+       "edge": "désignée comme"
+   },
+   {
+       "node_1": "gestionnaire du portail des marchés publics",
+       "node_2": "hébergement de l’infrastructure technique (matériel et logiciels) du portail",
+       "edge": "chargé de"
+   }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "maintenance préventive et évolutive",
+       "node_2": "portail",
+       "edge": "est responsable de"
+   },
+   {
+       "node_1": "dispositif de création et de gestion des comptes",
+       "node_2": "acteurs et utilisateurs du portail",
+       "edge": "gère"
+   },
+   {
+       "node_1": "création et gestion des comptes utilisateurs",
+       "node_2": "différents acteurs du portail",
+       "edge": "est responsable de"
+   },
+   {
+       "node_1": "veille sur le respect de l’utilisation",
+       "node_2": "portail",
+       "edge": "surveille"
+   },
+   {
+       "node_1": "sécurité technique et cryptographique",
+       "node_2": "portail",
+       "edge": "assure"
+   },
+   {
+       "node_1": "gestion des certificats électroniques",
+       "node_2": "maîtres d’ouvrages",
+       "edge": "utilise selon les conditions du portail"
+   },
+   {
+       "node_1": "Trésorerie générale du Royaume",
+       "node_2": "publication des textes législatifs et réglementaires relatifs aux marchés publics",
+       "edge": "est chargée de"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "programme prévisionnel triennal des marchés et sa mise à jour",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis de publicité et les avis rectificatifs y afférents",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis d’appel à manifestation d’intérêt",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis des enchères électroniques inversées",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "dossiers d’appel à la concurrence et les modifications y afférentes, le cas échéant",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "procès-verbaux des réunions ou des visites des lieux, le cas échéant",
+       "edge": "publie sur le portail"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "maintenance préventive et évolutive",
+       "node_2": "portail",
+       "edge": "est responsable de"
+   },
+   {
+       "node_1": "dispositif de création et de gestion des comptes",
+       "node_2": "acteurs et utilisateurs du portail",
+       "edge": "gère"
+   },
+   {
+       "node_1": "création et gestion des comptes utilisateurs",
+       "node_2": "différents acteurs du portail",
+       "edge": "est responsable de"
+   },
+   {
+       "node_1": "veille sur le respect de l’utilisation",
+       "node_2": "portail",
+       "edge": "surveille"
+   },
+   {
+       "node_1": "sécurité technique et cryptographique",
+       "node_2": "portail",
+       "edge": "assure"
+   },
+   {
+       "node_1": "gestion des certificats électroniques",
+       "node_2": "maîtres d’ouvrages",
+       "edge": "utilise selon les conditions du portail"
+   },
+   {
+       "node_1": "Trésorerie générale du Royaume",
+       "node_2": "publication des textes législatifs et réglementaires relatifs aux marchés publics",
+       "edge": "est chargée de"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "programme prévisionnel triennal des marchés et sa mise à jour",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis de publicité et les avis rectificatifs y afférents",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis d’appel à manifestation d’intérêt",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis des enchères électroniques inversées",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "dossiers d’appel à la concurrence et les modifications y afférentes, le cas échéant",
+       "edge": "publie sur le portail"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "procès-verbaux des réunions ou des visites des lieux, le cas échéant",
+       "edge": "publie sur le portail"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "procès-verbaux des réunions ou des visites des lieux",
+        "node_2": "extraits des procès-verbaux des séances d’examen des offres",
+        "edge": "les deux documents sont des comptes rendus de réunions"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "marchés négociés avec publicité préalable et mise en concurrence",
+        "edge": "les deux sont des résultats de procédures de passation de marchés"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "concours",
+        "edge": "les deux sont des méthodes de sélection pour les marchés publics"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "consultations architecturales",
+        "edge": "les deux impliquent la sélection de prestataires pour des services architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "concours architecturaux",
+        "edge": "les deux sont des procédures de sélection pour les projets architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "consultations architecturales négociées",
+        "edge": "les deux concernent la sélection de prestataires pour des services architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "enchères électroniques inversées",
+        "edge": "les deux sont des méthodes de sélection pour les marchés publics"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "achats sur catalogues électroniques",
+        "edge": "les deux sont des méthodes d'acquisition de biens ou services"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "bons de commande",
+        "edge": "les deux concernent les commandes passées pour les marchés publics"
+    },
+    {
+        "node_1": "décisions d’annulation de la procédure",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les décisions d'annulation affectent les résultats des appels d'offres"
+    },
+    {
+        "node_1": "rapports de présentation des marchés",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les rapports de présentation sont basés sur les résultats des appels d'offres"
+    },
+    {
+        "node_1": "rapports d’achèvement de l’exécution des marchés",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les rapports d'achèvement sont le résultat final des procédures de passation"
+    },
+    {
+        "node_1": "décisions d’exclusion de la participation aux marchés publics ou aux contrats d’architectes",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les décisions d'exclusion influencent les résultats des appels d'offres"
+    },
+    {
+        "node_1": "synthèses des rapports de contrôle et d’audit",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les synthèses de contrôle sont basées sur les résultats des appels d'offres"
+    },
+    {
+        "node_1": "liste des conventions et des contrats de droit commun",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les conventions et contrats sont le résultat final des procédures de passation"
+    },
+    {
+        "node_1": "liste des bons de commande",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les bons de commande sont issus des résultats des appels d'offres"
+    }
+]
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "procès-verbaux des réunions ou des visites des lieux",
+        "node_2": "extraits des procès-verbaux des séances d’examen des offres",
+        "edge": "les deux documents sont des comptes rendus de réunions"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "marchés négociés avec publicité préalable et mise en concurrence",
+        "edge": "les deux sont des résultats de procédures de passation de marchés"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "concours",
+        "edge": "les deux sont des méthodes de sélection pour les marchés publics"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "consultations architecturales",
+        "edge": "les deux impliquent la sélection de prestataires pour des services architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "concours architecturaux",
+        "edge": "les deux sont des procédures de sélection pour les projets architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "consultations architecturales négociées",
+        "edge": "les deux concernent la sélection de prestataires pour des services architecturaux"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "enchères électroniques inversées",
+        "edge": "les deux sont des méthodes de sélection pour les marchés publics"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "achats sur catalogues électroniques",
+        "edge": "les deux sont des méthodes d'acquisition de biens ou services"
+    },
+    {
+        "node_1": "résultats des appels d’offres",
+        "node_2": "bons de commande",
+        "edge": "les deux concernent les commandes passées pour les marchés publics"
+    },
+    {
+        "node_1": "décisions d’annulation de la procédure",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les décisions d'annulation affectent les résultats des appels d'offres"
+    },
+    {
+        "node_1": "rapports de présentation des marchés",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les rapports de présentation sont basés sur les résultats des appels d'offres"
+    },
+    {
+        "node_1": "rapports d’achèvement de l’exécution des marchés",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les rapports d'achèvement sont le résultat final des procédures de passation"
+    },
+    {
+        "node_1": "décisions d’exclusion de la participation aux marchés publics ou aux contrats d’architectes",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les décisions d'exclusion influencent les résultats des appels d'offres"
+    },
+    {
+        "node_1": "synthèses des rapports de contrôle et d’audit",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les synthèses de contrôle sont basées sur les résultats des appels d'offres"
+    },
+    {
+        "node_1": "liste des conventions et des contrats de droit commun",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les conventions et contrats sont le résultat final des procédures de passation"
+    },
+    {
+        "node_1": "liste des bons de commande",
+        "node_2": "résultats des appels d’offres",
+        "edge": "les bons de commande sont issus des résultats des appels d'offres"
+    }
+] 
+
+
+ ```json
+[
+   {
+       "node_1": "la commission nationale de la commande publique",
+       "node_2": "les avis émanant d’elle",
+       "edge": "responsable de la publication"
+   },
+   {
+       "node_1": "les administrations habilitées à délivrer les certificats",
+       "node_2": "les décisions de retrait des certificats",
+       "edge": "chargées de publier"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "le dossier de consultation",
+       "edge": "soumet aux membres de la commission pour observation"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "la composition et le contenu des plis électroniques",
+       "edge": "définit selon les conditions du portail"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "la commission nationale de la commande publique",
+       "node_2": "les avis émanant d’elle",
+       "edge": "responsable de la publication"
+   },
+   {
+       "node_1": "les administrations habilitées à délivrer les certificats",
+       "node_2": "les décisions de retrait des certificats",
+       "edge": "chargées de publier"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "le dossier de consultation",
+       "edge": "soumet aux membres de la commission pour observation"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "la composition et le contenu des plis électroniques",
+       "edge": "définit selon les conditions du portail"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "bi-clés de chiffrement",
+        "node_2": "déchiffrement des plis électroniques",
+        "edge": "association"
+    },
+    {
+        "node_1": "bi-clés de chiffrement et de déchiffrement",
+        "node_2": "consultation",
+        "edge": "définition"
+    },
+    {
+        "node_1": "concurrents concernés",
+        "node_2": "prorogation du délai de validité des offres",
+        "edge": "demande"
+    },
+    {
+        "node_1": "résultat de la séance d’ouverture des plis et d’évaluation des offres",
+        "node_2": "publication",
+        "edge": "action"
+    },
+    {
+        "node_1": "attributaire",
+        "node_2": "acceptation de l’offre",
+        "edge": "information"
+    },
+    {
+        "node_1": "concurrents éliminés",
+        "node_2": "rejet des offres",
+        "edge": "avis"
+    },
+    {
+        "node_1": "motifs d’éviction",
+        "node_2": "concurrents éliminés",
+        "edge": "indication"
+    },
+    {
+        "node_1": "document ou donnée ayant un lien avec la passation des marchés publics",
+        "node_2": "traitement",
+        "edge": "action"
+    },
+    {
+        "node_1": "candidatures et les offres électroniques déposées par les concurrents",
+        "node_2": "déchiffrement",
+        "edge": "action"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "ouverture",
+        "edge": "action"
+    },
+    {
+        "node_1": "offres des concurrents",
+        "node_2": "évaluation",
+        "edge": "action"
+    },
+    {
+        "node_1": "admissibilité des concurrents",
+        "node_2": "gestion",
+        "edge": "action"
+    },
+    {
+        "node_1": "résultats de l’évaluation des offres",
+        "node_2": "renseignement",
+        "edge": "action"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "demande d’éclaircissements",
+        "edge": "action"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "bi-clés de chiffrement",
+        "node_2": "déchiffrement des plis électroniques",
+        "edge": "association"
+    },
+    {
+        "node_1": "bi-clés de chiffrement et de déchiffrement",
+        "node_2": "consultation",
+        "edge": "définition"
+    },
+    {
+        "node_1": "concurrents concernés",
+        "node_2": "prorogation du délai de validité des offres",
+        "edge": "demande"
+    },
+    {
+        "node_1": "résultat de la séance d’ouverture des plis et d’évaluation des offres",
+        "node_2": "publication",
+        "edge": "action"
+    },
+    {
+        "node_1": "attributaire",
+        "node_2": "acceptation de l’offre",
+        "edge": "information"
+    },
+    {
+        "node_1": "concurrents éliminés",
+        "node_2": "rejet des offres",
+        "edge": "avis"
+    },
+    {
+        "node_1": "motifs d’éviction",
+        "node_2": "concurrents éliminés",
+        "edge": "indication"
+    },
+    {
+        "node_1": "document ou donnée ayant un lien avec la passation des marchés publics",
+        "node_2": "traitement",
+        "edge": "action"
+    },
+    {
+        "node_1": "candidatures et les offres électroniques déposées par les concurrents",
+        "node_2": "déchiffrement",
+        "edge": "action"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "ouverture",
+        "edge": "action"
+    },
+    {
+        "node_1": "offres des concurrents",
+        "node_2": "évaluation",
+        "edge": "action"
+    },
+    {
+        "node_1": "admissibilité des concurrents",
+        "node_2": "gestion",
+        "edge": "action"
+    },
+    {
+        "node_1": "résultats de l’évaluation des offres",
+        "node_2": "renseignement",
+        "edge": "action"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "demande d’éclaircissements",
+        "edge": "action"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "commission de consultation",
+        "node_2": "résultats définitifs",
+        "edge": "arrête"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "dossier administratif",
+        "edge": "doit compléter électroniquement et régulariser"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "erreurs matérielles",
+        "edge": "doit confirmer les rectifications"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "discordances constatées dans diverses pièces du dossier administratif",
+        "edge": "doit régulariser"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "prix unitaires principaux jugés anormalement bas ou excessifs",
+        "edge": "doit justifier"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "échantillons ou prototypes exigés par le règlement de consultation",
+        "edge": "doit produire"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent",
+        "edge": "peut fournir des éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "plis et offre",
+        "edge": "doit déposer électroniquement"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "plis déposés sur le portail des marchés publics",
+        "edge": "peut retirer électroniquement avant la séance d’ouverture"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent",
+        "edge": "peut demander une prorogation du délai de validité de l’offre"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "commission de consultation",
+        "node_2": "résultats définitifs",
+        "edge": "arrête"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "dossier administratif",
+        "edge": "doit compléter électroniquement et régulariser"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "erreurs matérielles",
+        "edge": "doit confirmer les rectifications"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "discordances constatées dans diverses pièces du dossier administratif",
+        "edge": "doit régulariser"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "prix unitaires principaux jugés anormalement bas ou excessifs",
+        "edge": "doit justifier"
+    },
+    {
+        "node_1": "concurrent ayant présenté l’offre la plus avantageuse",
+        "node_2": "échantillons ou prototypes exigés par le règlement de consultation",
+        "edge": "doit produire"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent",
+        "edge": "peut fournir des éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "plis et offre",
+        "edge": "doit déposer électroniquement"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "plis déposés sur le portail des marchés publics",
+        "edge": "peut retirer électroniquement avant la séance d’ouverture"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent",
+        "edge": "peut demander une prorogation du délai de validité de l’offre"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "décret n° 2-22-431",
+        "node_2": "dispositions",
+        "edge": "contenir"
+    },
+    {
+        "node_1": "décret n° 2-22-431",
+        "node_2": "articles 43 et 44",
+        "edge": "spécifier"
+    },
+    {
+        "node_1": "dossier administratif",
+        "node_2": "compléter",
+        "edge": "nécessiter"
+    },
+    {
+        "node_1": "erreurs matérielles",
+        "node_2": "rectifications",
+        "edge": "confirmer"
+    },
+    {
+        "node_1": "discordances dans les diverses pièces du dossier",
+        "node_2": "régulariser",
+        "edge": "requérir"
+    },
+    {
+        "node_1": "prix unitaires principaux jugés anormalement bas ou excessifs",
+        "node_2": "justifier",
+        "edge": "exiger"
+    },
+    {
+        "node_1": "documents ou données liées à la passation des marchés publics",
+        "node_2": "traiter",
+        "edge": "nécessiter"
+    },
+    {
+        "node_1": "agents chargés du contrôle, comptable public ou personne chargée du paiement",
+        "node_2": "projets de dossiers de consultation",
+        "edge": "examiner"
+    },
+    {
+        "node_1": "agents chargés du contrôle, comptable public ou personne chargée du paiement",
+        "node_2": "procédures de passation des marchés publics",
+        "edge": "suivre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "observations éventuelles",
+        "edge": "faire part de"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "dossier de consultation et tout document ou renseignement",
+        "edge": "mettre à disposition"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "décret n° 2-22-431",
+        "node_2": "dispositions",
+        "edge": "contenir"
+    },
+    {
+        "node_1": "décret n° 2-22-431",
+        "node_2": "articles 43 et 44",
+        "edge": "spécifier"
+    },
+    {
+        "node_1": "dossier administratif",
+        "node_2": "compléter",
+        "edge": "nécessiter"
+    },
+    {
+        "node_1": "erreurs matérielles",
+        "node_2": "rectifications",
+        "edge": "confirmer"
+    },
+    {
+        "node_1": "discordances dans les diverses pièces du dossier",
+        "node_2": "régulariser",
+        "edge": "requérir"
+    },
+    {
+        "node_1": "prix unitaires principaux jugés anormalement bas ou excessifs",
+        "node_2": "justifier",
+        "edge": "exiger"
+    },
+    {
+        "node_1": "documents ou données liées à la passation des marchés publics",
+        "node_2": "traiter",
+        "edge": "nécessiter"
+    },
+    {
+        "node_1": "agents chargés du contrôle, comptable public ou personne chargée du paiement",
+        "node_2": "projets de dossiers de consultation",
+        "edge": "examiner"
+    },
+    {
+        "node_1": "agents chargés du contrôle, comptable public ou personne chargée du paiement",
+        "node_2": "procédures de passation des marchés publics",
+        "edge": "suivre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "observations éventuelles",
+        "edge": "faire part de"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "dossier de consultation et tout document ou renseignement",
+        "edge": "mettre à disposition"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bi-clés de chiffrement et de déchiffrement",
+        "edge": "associe"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "responsabilité de gestion des bi-clés",
+        "edge": "incombe à"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "dossier de consultation",
+        "edge": "peuvent consulter et/ou télécharger"
+    },
+    {
+        "node_1": "pièces constituant la réponse du concurrent",
+        "node_2": "enveloppe électronique",
+        "edge": "est insérée, individuellement, dans"
+    },
+    {
+        "node_1": "concurrent ou personne dûment habilitée",
+        "node_2": "pièces",
+        "edge": "est signée électroniquement par"
+    },
+    {
+        "node_1": "groupement",
+        "node_2": "pièces",
+        "edge": "sont signées soit par l’ensemble des membres, soit uniquement par le mandataire conformément aux dispositions du paragraphe C) de l’article 150 du décret précité n° 2-22-431"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "plis des concurrents",
+        "edge": "chiffre avant leur dépôt par voie électronique"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bi-clés de chiffrement et de déchiffrement",
+        "edge": "associe"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "responsabilité de gestion des bi-clés",
+        "edge": "incombe à"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "dossier de consultation",
+        "edge": "peuvent consulter et/ou télécharger"
+    },
+    {
+        "node_1": "pièces constituant la réponse du concurrent",
+        "node_2": "enveloppe électronique",
+        "edge": "est insérée, individuellement, dans"
+    },
+    {
+        "node_1": "concurrent ou personne dûment habilitée",
+        "node_2": "pièces",
+        "edge": "est signée électroniquement par"
+    },
+    {
+        "node_1": "groupement",
+        "node_2": "pièces",
+        "edge": "sont signées soit par l’ensemble des membres, soit uniquement par le mandataire conformément aux dispositions du paragraphe C) de l’article 150 du décret précité n° 2-22-431"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "plis des concurrents",
+        "edge": "chiffre avant leur dépôt par voie électronique"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "plis",
+        "node_2": "portail des marchés publics",
+        "edge": "chiffrés par"
+    },
+    {
+        "node_1": "plis",
+        "node_2": "concurrent ou la personne dûment habilitée à le représenter",
+        "edge": "déposés par"
+    },
+    {
+        "node_1": "plis",
+        "node_2": "certificat de signature électronique",
+        "edge": "moyennant"
+    },
+    {
+        "node_1": "dépôt des plis",
+        "node_2": "portail des marchés publics",
+        "edge": "horodatage automatique au niveau de"
+    },
+    {
+        "node_1": "pli électronique déposé postérieurement à la date limite",
+        "node_2": "portail des marchés publics",
+        "edge": "automatiquement rejeté par"
+    },
+    {
+        "node_1": "retrait de pli",
+        "node_2": "certificat électronique ayant servi au dépôt de ce pli",
+        "edge": "effectué au moyen de"
+    },
+    {
+        "node_1": "informations relatives audit retrait",
+        "node_2": "registre de dépôt des plis",
+        "edge": "enregistrées automatiquement sur"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "plis",
+        "node_2": "portail des marchés publics",
+        "edge": "chiffrés par"
+    },
+    {
+        "node_1": "plis",
+        "node_2": "concurrent ou la personne dûment habilitée à le représenter",
+        "edge": "déposés par"
+    },
+    {
+        "node_1": "plis",
+        "node_2": "certificat de signature électronique",
+        "edge": "moyennant"
+    },
+    {
+        "node_1": "dépôt des plis",
+        "node_2": "portail des marchés publics",
+        "edge": "horodatage automatique au niveau de"
+    },
+    {
+        "node_1": "pli électronique déposé postérieurement à la date limite",
+        "node_2": "portail des marchés publics",
+        "edge": "automatiquement rejeté par"
+    },
+    {
+        "node_1": "retrait de pli",
+        "node_2": "certificat électronique ayant servi au dépôt de ce pli",
+        "edge": "effectué au moyen de"
+    },
+    {
+        "node_1": "informations relatives audit retrait",
+        "node_2": "registre de dépôt des plis",
+        "edge": "enregistrées automatiquement sur"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "date limite de remise des plis",
+        "node_2": "constitution et restitution des garanties pécuniaires",
+        "edge": "précède"
+    },
+    {
+        "node_1": "constitution et restitution des garanties pécuniaires",
+        "node_2": "voie électronique",
+        "edge": "s’effectue par"
+    },
+    {
+        "node_1": "conditions du portail des marchés",
+        "node_2": "constitution et restitution des garanties pécuniaires",
+        "edge": "régissent"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "date limite de remise des plis",
+        "node_2": "constitution et restitution des garanties pécuniaires",
+        "edge": "précède"
+    },
+    {
+        "node_1": "constitution et restitution des garanties pécuniaires",
+        "node_2": "voie électronique",
+        "edge": "s’effectue par"
+    },
+    {
+        "node_1": "conditions du portail des marchés",
+        "node_2": "constitution et restitution des garanties pécuniaires",
+        "edge": "régissent"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "organismes agréés",
+        "edge": "permet aux organismes de traiter les demandes"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "concurrents",
+        "edge": "permet aux concurrents d'introduire des demandes"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "titulaires des marchés publics",
+        "edge": "permet aux titulaires de traiter les demandes"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "demandes de garanties pécuniaires",
+        "edge": "instruisent et délivrent les garanties"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "concurrents",
+        "edge": "reçoivent des demandes de restitution des garanties des concurrents"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "titulaires des marchés publics",
+        "edge": "reçoivent des demandes de restitution des garanties des titulaires"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "maître d’ouvrage",
+        "edge": "reçoivent les mainlevées du maître d’ouvrage sur les garanties"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "organismes agréés",
+        "edge": "introduisent des demandes de constitution de cautionnements auprès des organismes agréés"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "maître d’ouvrage",
+        "edge": "demandent la mainlevée sur les cautionnements au maître d’ouvrage"
+    },
+    {
+        "node_1": "titulaires des marchés publics",
+        "node_2": "organismes agréés",
+        "edge": "demandent la restitution des cautionnements à l'organisme agréé"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "organismes agréés",
+        "edge": "permet aux organismes de traiter les demandes"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "concurrents",
+        "edge": "permet aux concurrents d'introduire des demandes"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "titulaires des marchés publics",
+        "edge": "permet aux titulaires de traiter les demandes"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "demandes de garanties pécuniaires",
+        "edge": "instruisent et délivrent les garanties"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "concurrents",
+        "edge": "reçoivent des demandes de restitution des garanties des concurrents"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "titulaires des marchés publics",
+        "edge": "reçoivent des demandes de restitution des garanties des titulaires"
+    },
+    {
+        "node_1": "organismes agréés",
+        "node_2": "maître d’ouvrage",
+        "edge": "reçoivent les mainlevées du maître d’ouvrage sur les garanties"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "organismes agréés",
+        "edge": "introduisent des demandes de constitution de cautionnements auprès des organismes agréés"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "maître d’ouvrage",
+        "edge": "demandent la mainlevée sur les cautionnements au maître d’ouvrage"
+    },
+    {
+        "node_1": "titulaires des marchés publics",
+        "node_2": "organismes agréés",
+        "edge": "demandent la restitution des cautionnements à l'organisme agréé"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "organismes agréés",
+       "edge": "introduire des demandes auprès"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "cautionnements définitifs",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "attestations de cautions personnelles et solidaires",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "caution en remplacement de la retenue de garantie",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "caution garantissant le remboursement de l’avance consentie par le maître d’ouvrage",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander les mainlevées sur les cautionnements constitués"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération des cautions personnelles et solidaires tenant lieu du cautionnement définitif"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération de la retenue de garantie"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération de la caution garantissant le remboursement de l’avance consentie"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "cautionnement provisoire",
+       "edge": "restituer au moyen d’une mainlevée délivrée aux concurrents"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire ayant constitué le cautionnement définitif",
+       "edge": "restituer dans le délai prescrit"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire",
+       "edge": "restituer le cautionnement définitif ou libérer les cautions personnelles et solidaires tenant lieu du cautionnement définitif"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire",
+       "edge": "restituer la retenue de garantie au moyen d’une mainlevée"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "organismes agréés",
+       "edge": "introduire des demandes auprès"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "cautionnements définitifs",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "attestations de cautions personnelles et solidaires",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "caution en remplacement de la retenue de garantie",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "caution garantissant le remboursement de l’avance consentie par le maître d’ouvrage",
+       "edge": "demander la constitution"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander les mainlevées sur les cautionnements constitués"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération des cautions personnelles et solidaires tenant lieu du cautionnement définitif"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération de la retenue de garantie"
+   },
+   {
+       "node_1": "titulaires des marchés",
+       "node_2": "maître d’ouvrage",
+       "edge": "demander la libération de la caution garantissant le remboursement de l’avance consentie"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "cautionnement provisoire",
+       "edge": "restituer au moyen d’une mainlevée délivrée aux concurrents"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire ayant constitué le cautionnement définitif",
+       "edge": "restituer dans le délai prescrit"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire",
+       "edge": "restituer le cautionnement définitif ou libérer les cautions personnelles et solidaires tenant lieu du cautionnement définitif"
+   },
+   {
+       "node_1": "maîtres d’ouvrages",
+       "node_2": "titulaire",
+       "edge": "restituer la retenue de garantie au moyen d’une mainlevée"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "maître d'ouvrage",
+        "node_2": "titulaire du marché",
+        "edge": "relatif au remboursement de l'avance"
+    },
+    {
+        "node_1": "cautions personnelles et solidaires",
+        "node_2": "remboursement de l’avance",
+        "edge": "garantissant le remboursement"
+    },
+    {
+        "node_1": "mainlevée",
+        "node_2": "cautions personnelles et solidaires",
+        "edge": "utilisée pour libérer les cautions"
+    },
+    {
+        "node_1": "décision de confiscation des cautionnements",
+        "node_2": "références de la décision",
+        "edge": "doit être renseignée"
+    },
+    {
+        "node_1": "ouverture des plis",
+        "node_2": "évaluation des offres",
+        "edge": "procédées simultanément par voie électronique"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "conditions d’utilisation",
+        "edge": "conformité aux conditions"
+    },
+    {
+        "node_1": "commission de consultation",
+        "node_2": "achèvement des travaux",
+        "edge": "jusqu'à l'achèvement des travaux"
+    },
+    {
+        "node_1": "difficultés techniques",
+        "node_2": "report de la séance d’ouverture des plis",
+        "edge": "entraîne un report de 48 heures"
+    },
+    {
+        "node_1": "président de la commission de consultation",
+        "node_2": "informer les concurrents et les membres de la commission",
+        "edge": "doit informer en cas de report"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "maître d'ouvrage",
+        "node_2": "titulaire du marché",
+        "edge": "relatif au remboursement de l'avance"
+    },
+    {
+        "node_1": "cautions personnelles et solidaires",
+        "node_2": "remboursement de l’avance",
+        "edge": "garantissant le remboursement"
+    },
+    {
+        "node_1": "mainlevée",
+        "node_2": "cautions personnelles et solidaires",
+        "edge": "utilisée pour libérer les cautions"
+    },
+    {
+        "node_1": "décision de confiscation des cautionnements",
+        "node_2": "références de la décision",
+        "edge": "doit être renseignée"
+    },
+    {
+        "node_1": "ouverture des plis",
+        "node_2": "évaluation des offres",
+        "edge": "procédées simultanément par voie électronique"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "conditions d’utilisation",
+        "edge": "conformité aux conditions"
+    },
+    {
+        "node_1": "commission de consultation",
+        "node_2": "achèvement des travaux",
+        "edge": "jusqu'à l'achèvement des travaux"
+    },
+    {
+        "node_1": "difficultés techniques",
+        "node_2": "report de la séance d’ouverture des plis",
+        "edge": "entraîne un report de 48 heures"
+    },
+    {
+        "node_1": "président de la commission de consultation",
+        "node_2": "informer les concurrents et les membres de la commission",
+        "edge": "doit informer en cas de report"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "reprise de la séance publique d’ouverture des plis",
+        "node_2": "dispositions de l’alinéa précédent",
+        "edge": "Application en cas de difficultés techniques"
+    },
+    {
+        "node_1": "rétablissement du portail",
+        "node_2": "informe les concurrents et les membres de la commission",
+        "edge": "Notifie par le portail des marchés publics"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "production des pièces du dossier administratif",
+        "edge": "Obligatoire de manière électronique"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "confirmation des rectifications des erreurs matérielles relevées",
+        "edge": "Confirmation nécessaire"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "régularisation des discordances constatées entre les diverses pièces de son dossier administratif",
+        "edge": "Régularisation obligatoire"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "justification du ou des prix unitaires principaux jugés excessifs ou anormalement bas",
+        "edge": "Justification conformément aux dispositions de l’article 44"
+    },
+    {
+        "node_1": "chaque pièce constituant la réponse du concurrent",
+        "node_2": "enveloppe électronique la concernant",
+        "edge": "Insertion individuelle dans une enveloppe électronique"
+    },
+    {
+        "node_1": "chaque pièce constituant la réponse du concurrent",
+        "node_2": "signée électroniquement",
+        "edge": "Signature électronique obligatoire"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "reprise de la séance publique d’ouverture des plis",
+        "node_2": "dispositions de l’alinéa précédent",
+        "edge": "Application en cas de difficultés techniques"
+    },
+    {
+        "node_1": "rétablissement du portail",
+        "node_2": "informe les concurrents et les membres de la commission",
+        "edge": "Notifie par le portail des marchés publics"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "production des pièces du dossier administratif",
+        "edge": "Obligatoire de manière électronique"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "confirmation des rectifications des erreurs matérielles relevées",
+        "edge": "Confirmation nécessaire"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "régularisation des discordances constatées entre les diverses pièces de son dossier administratif",
+        "edge": "Régularisation obligatoire"
+    },
+    {
+        "node_1": "concurrent auquel il est envisagé d’attribuer le marché",
+        "node_2": "justification du ou des prix unitaires principaux jugés excessifs ou anormalement bas",
+        "edge": "Justification conformément aux dispositions de l’article 44"
+    },
+    {
+        "node_1": "chaque pièce constituant la réponse du concurrent",
+        "node_2": "enveloppe électronique la concernant",
+        "edge": "Insertion individuelle dans une enveloppe électronique"
+    },
+    {
+        "node_1": "chaque pièce constituant la réponse du concurrent",
+        "node_2": "signée électroniquement",
+        "edge": "Signature électronique obligatoire"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "enveloppe électronique",
+       "node_2": "pièce dématérialisée",
+       "edge": "exclue"
+   },
+   {
+       "node_1": "concurrent",
+       "node_2": "personne dûment habilitée",
+       "edge": "peut être représenté par"
+   },
+   {
+       "node_1": "enveloppe électronique",
+       "node_2": "concurrent",
+       "edge": "doit contenir une offre signée par le concurrent ou son représentant"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "enveloppe électronique",
+       "node_2": "pièce dématérialisée",
+       "edge": "exclue"
+   },
+   {
+       "node_1": "concurrent",
+       "node_2": "personne dûment habilitée",
+       "edge": "peut être représenté par"
+   },
+   {
+       "node_1": "enveloppe électronique",
+       "node_2": "concurrent",
+       "edge": "doit contenir une offre signée par le concurrent ou son représentant"
+   }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "conclusion du marché",
+       "node_2": "dossier sous format électronique",
+       "edge": "est effectuée sur la base de"
+   },
+   {
+       "node_1": "contrats relatifs aux prestations architecturales",
+       "node_2": "format électronique",
+       "edge": "sont passés sous"
+   },
+   {
+       "node_1": "contrats relatifs aux prestations architecturales",
+       "node_2": "dispositions du présent chapitre",
+       "edge": "sont conformes à"
+   },
+   {
+       "node_1": "procédure des enchères électroniques inversées",
+       "node_2": "marchés de fournitures",
+       "edge": "peut être recourue pour"
+   },
+   {
+       "node_1": "fournitures",
+       "node_2": "décrites de manière précise",
+       "edge": "doivent être"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis de l’enchère électronique inversée",
+       "edge": "publie sur le portail des marchés publics"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "dossier de l’enchère électronique inversée",
+       "edge": "publie sur le portail des marchés publics"
+   },
+   {
+       "node_1": "concurrents",
+       "node_2": "dossier de l’enchère électronique inversée et les documents complémentaires",
+       "edge": "peuvent être consultés et/ou téléchargés par"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "conclusion du marché",
+       "node_2": "dossier sous format électronique",
+       "edge": "est effectuée sur la base de"
+   },
+   {
+       "node_1": "contrats relatifs aux prestations architecturales",
+       "node_2": "format électronique",
+       "edge": "sont passés sous"
+   },
+   {
+       "node_1": "contrats relatifs aux prestations architecturales",
+       "node_2": "dispositions du présent chapitre",
+       "edge": "sont conformes à"
+   },
+   {
+       "node_1": "procédure des enchères électroniques inversées",
+       "node_2": "marchés de fournitures",
+       "edge": "peut être recourue pour"
+   },
+   {
+       "node_1": "fournitures",
+       "node_2": "décrites de manière précise",
+       "edge": "doivent être"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis de l’enchère électronique inversée",
+       "edge": "publie sur le portail des marchés publics"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "dossier de l’enchère électronique inversée",
+       "edge": "publie sur le portail des marchés publics"
+   },
+   {
+       "node_1": "concurrents",
+       "node_2": "dossier de l’enchère électronique inversée et les documents complémentaires",
+       "edge": "peuvent être consultés et/ou téléchargés par"
+   }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "concurrents",
+       "node_2": "conditions d’utilisation du portail des marchés publics",
+       "edge": "peuvent être consultés et/ou téléchargés par"
+   },
+   {
+       "node_1": "nombre minimum des concurrents devant s’inscrire pour participer à l’enchère électronique inversée",
+       "node_2": "trois",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "nombre minimum des concurrents admis à enchérir",
+       "node_2": "deux",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "nombre minimum des concurrents admis et qui enchérissent",
+       "node_2": "deux",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "prix de début",
+       "edge": "établit le prix du début de l’enchère"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "pas minimum de l’article",
+       "edge": "établit un montant minimum de révision"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "pas maximum de l’article",
+       "edge": "établit un montant maximum de révision"
+   },
+   {
+       "node_1": "ouverture des plis, l’examen des dossiers des concurrents et le suivi du déroulement de l’enchère électronique inversée",
+       "node_2": "commission constituée dans les conditions prévues à l’article 31 du présent arrêté",
+       "edge": "est effectué par"
+   },
+   {
+       "node_1": "avis de l’enchère électronique inversée",
+       "node_2": "objet de l’enchère électronique inversée",
+       "edge": "fait connaître"
+   },
+   {
+       "node_1": "avis de l’enchère électronique inversée",
+       "node_2": "maître d’ouvrage qui procède à l’enchère électronique inversée",
+       "edge": "fait connaître"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "concurrents",
+       "node_2": "conditions d’utilisation du portail des marchés publics",
+       "edge": "peuvent être consultés et/ou téléchargés par"
+   },
+   {
+       "node_1": "nombre minimum des concurrents devant s’inscrire pour participer à l’enchère électronique inversée",
+       "node_2": "trois",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "nombre minimum des concurrents admis à enchérir",
+       "node_2": "deux",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "nombre minimum des concurrents admis et qui enchérissent",
+       "node_2": "deux",
+       "edge": "ne peut être inférieur à"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "prix de début",
+       "edge": "établit le prix du début de l’enchère"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "pas minimum de l’article",
+       "edge": "établit un montant minimum de révision"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "pas maximum de l’article",
+       "edge": "établit un montant maximum de révision"
+   },
+   {
+       "node_1": "ouverture des plis, l’examen des dossiers des concurrents et le suivi du déroulement de l’enchère électronique inversée",
+       "node_2": "commission constituée dans les conditions prévues à l’article 31 du présent arrêté",
+       "edge": "est effectué par"
+   },
+   {
+       "node_1": "avis de l’enchère électronique inversée",
+       "node_2": "objet de l’enchère électronique inversée",
+       "edge": "fait connaître"
+   },
+   {
+       "node_1": "avis de l’enchère électronique inversée",
+       "node_2": "maître d’ouvrage qui procède à l’enchère électronique inversée",
+       "edge": "fait connaître"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le jour de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le temps de prorogation de l’enchère",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "l’heure du début et de celle de la fin",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "le temps de prorogation de l’enchère",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le temps de prorogation de l’enchère",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le temps de prorogation de l’enchère",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le prix du début de l’enchère électronique inversée",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la référence aux dispositions du règlement de l’enchère électronique inversée",
+        "node_2": "la liste des pièces justificatives",
+        "edge": "référence"
+    },
+    {
+        "node_1": "les conditions requises des concurrents enchérisseurs",
+        "node_2": "le décret précité n° 2-22-431",
+        "edge": "référence"
+    },
+    {
+        "node_1": "le prix du début de l’enchère électronique inversée",
+        "node_2": "les prestations objet de l’enchère",
+        "edge": "association"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le jour de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le temps de prorogation de l’enchère",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la date limite de dépôt électronique des plis",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "l’heure du début et de celle de la fin",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "le temps de prorogation de l’enchère",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le jour de l’enchère électronique inversée",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le temps de prorogation de l’enchère",
+        "node_2": "le prix du début de l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le temps de prorogation de l’enchère",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "le prix du début de l’enchère électronique inversée",
+        "node_2": "les pas des articles constituant l’enchère électronique inversée",
+        "edge": "co-occurrence dans la liste des informations requises"
+    },
+    {
+        "node_1": "la référence aux dispositions du règlement de l’enchère électronique inversée",
+        "node_2": "la liste des pièces justificatives",
+        "edge": "référence"
+    },
+    {
+        "node_1": "les conditions requises des concurrents enchérisseurs",
+        "node_2": "le décret précité n° 2-22-431",
+        "edge": "référence"
+    },
+    {
+        "node_1": "le prix du début de l’enchère électronique inversée",
+        "node_2": "les prestations objet de l’enchère",
+        "edge": "association"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "prestations objet de l’enchère",
+        "node_2": "articles constituant l’enchère électronique inversée",
+        "edge": "relation d'inclusion"
+    },
+    {
+        "node_1": "enchère électronique inversée",
+        "node_2": "dossier",
+        "edge": "contient"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "avis de l’enchère électronique inversée",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "règlement de l’enchère électronique inversée",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "exemplaire du cahier des prescriptions spéciales",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "modèle de la déclaration sur l’honneur",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "modèle de l’acte d’engagement",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "critères d’admissibilité des concurrents",
+        "edge": "mentionne"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "prix le moins-disant",
+        "edge": "spécifie comme critère d'attribution"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "dirham marocain",
+        "edge": "spécifie comme monnaie utilisée"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "délais et formalités de participation pour la première phase de l’enchère électronique",
+        "edge": "mentionne"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "prestations objet de l’enchère",
+        "node_2": "articles constituant l’enchère électronique inversée",
+        "edge": "relation d'inclusion"
+    },
+    {
+        "node_1": "enchère électronique inversée",
+        "node_2": "dossier",
+        "edge": "contient"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "avis de l’enchère électronique inversée",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "règlement de l’enchère électronique inversée",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "exemplaire du cahier des prescriptions spéciales",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "modèle de la déclaration sur l’honneur",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "dossier",
+        "node_2": "modèle de l’acte d’engagement",
+        "edge": "inclut"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "critères d’admissibilité des concurrents",
+        "edge": "mentionne"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "prix le moins-disant",
+        "edge": "spécifie comme critère d'attribution"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "dirham marocain",
+        "edge": "spécifie comme monnaie utilisée"
+    },
+    {
+        "node_1": "règlement de l’enchère électronique inversée",
+        "node_2": "délais et formalités de participation pour la première phase de l’enchère électronique",
+        "edge": "mentionne"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "date et heure d'ouverture et de clôture",
+        "node_2": "enchère objet de la deuxième phase",
+        "edge": "prévues pour l'ouverture et la clôture"
+    },
+    {
+        "node_1": "article 36 du présent arrêté",
+        "node_2": "enchère objet de la deuxième phase",
+        "edge": "définit les conditions de l'enchère"
+    },
+    {
+        "node_1": "liste des pièces à fournir",
+        "node_2": "dispositions de l’article 27 ci-dessous",
+        "edge": "répertoriées selon les exigences légales"
+    },
+    {
+        "node_1": "temps de prorogation",
+        "node_2": "enchère électronique inversée",
+        "edge": "prolongement minimum requis"
+    },
+    {
+        "node_1": "nombre minimum des concurrents admis à enchérir",
+        "node_2": "enchère électronique inversée",
+        "edge": "participation minimale obligatoire"
+    },
+    {
+        "node_1": "pas des articles constituant l’enchère",
+        "node_2": "enchère électronique inversée",
+        "edge": "divisions de l'enchère"
+    },
+    {
+        "node_1": "langue des pièces contenues dans les dossiers et offres",
+        "node_2": "offres présentées par les concurrents enchérisseurs",
+        "edge": "langue officielle requise"
+    },
+    {
+        "node_1": "échantillons et/ou prototypes à produire",
+        "node_2": "enchère électronique inversée",
+        "edge": "exemples nécessaires pour l'offre"
+    },
+    {
+        "node_1": "pli comprenant un dossier administratif et un dossier technique",
+        "node_2": "chaque concurrent",
+        "edge": "documentation obligatoire à soumettre"
+    },
+    {
+        "node_1": "dossier administratif",
+        "node_2": "pli comprenant un dossier administratif et un dossier technique",
+        "edge": "composante administrative requise"
+    },
+    {
+        "node_1": "pièces exigées du concurrent",
+        "node_2": "dossier administratif",
+        "edge": "documents nécessaires à inclure"
+    },
+    {
+        "node_1": "dossier technique",
+        "node_2": "pli comprenant un dossier administratif et un dossier technique",
+        "edge": "composante technique requise"
+    },
+    {
+        "node_1": "note indiquant les moyens humains et techniques du concurrent",
+        "node_2": "dossier technique",
+        "edge": "détails des capacités du concurrent"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "date et heure d'ouverture et de clôture",
+        "node_2": "enchère objet de la deuxième phase",
+        "edge": "prévues pour l'ouverture et la clôture"
+    },
+    {
+        "node_1": "article 36 du présent arrêté",
+        "node_2": "enchère objet de la deuxième phase",
+        "edge": "définit les conditions de l'enchère"
+    },
+    {
+        "node_1": "liste des pièces à fournir",
+        "node_2": "dispositions de l’article 27 ci-dessous",
+        "edge": "répertoriées selon les exigences légales"
+    },
+    {
+        "node_1": "temps de prorogation",
+        "node_2": "enchère électronique inversée",
+        "edge": "prolongement minimum requis"
+    },
+    {
+        "node_1": "nombre minimum des concurrents admis à enchérir",
+        "node_2": "enchère électronique inversée",
+        "edge": "participation minimale obligatoire"
+    },
+    {
+        "node_1": "pas des articles constituant l’enchère",
+        "node_2": "enchère électronique inversée",
+        "edge": "divisions de l'enchère"
+    },
+    {
+        "node_1": "langue des pièces contenues dans les dossiers et offres",
+        "node_2": "offres présentées par les concurrents enchérisseurs",
+        "edge": "langue officielle requise"
+    },
+    {
+        "node_1": "échantillons et/ou prototypes à produire",
+        "node_2": "enchère électronique inversée",
+        "edge": "exemples nécessaires pour l'offre"
+    },
+    {
+        "node_1": "pli comprenant un dossier administratif et un dossier technique",
+        "node_2": "chaque concurrent",
+        "edge": "documentation obligatoire à soumettre"
+    },
+    {
+        "node_1": "dossier administratif",
+        "node_2": "pli comprenant un dossier administratif et un dossier technique",
+        "edge": "composante administrative requise"
+    },
+    {
+        "node_1": "pièces exigées du concurrent",
+        "node_2": "dossier administratif",
+        "edge": "documents nécessaires à inclure"
+    },
+    {
+        "node_1": "dossier technique",
+        "node_2": "pli comprenant un dossier administratif et un dossier technique",
+        "edge": "composante technique requise"
+    },
+    {
+        "node_1": "note indiquant les moyens humains et techniques du concurrent",
+        "node_2": "dossier technique",
+        "edge": "détails des capacités du concurrent"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "lieu",
+        "node_2": "date",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "lieu",
+        "node_2": "nature",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "lieu",
+        "node_2": "importance",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "qualité de la participation",
+        "node_2": "nature des prestations",
+        "edge": "description précise"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "maître d’ouvrage",
+        "edge": "demande d'éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent demandeur",
+        "edge": "fourniture d'éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "autres concurrents",
+        "edge": "communication simultanée des éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "dossier de l'enchère électronique inversée",
+        "edge": "introduction de modifications"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "lieu",
+        "node_2": "date",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "lieu",
+        "node_2": "nature",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "lieu",
+        "node_2": "importance",
+        "edge": "co-occurrence dans les prestations"
+    },
+    {
+        "node_1": "qualité de la participation",
+        "node_2": "nature des prestations",
+        "edge": "description précise"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "maître d’ouvrage",
+        "edge": "demande d'éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent demandeur",
+        "edge": "fourniture d'éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "autres concurrents",
+        "edge": "communication simultanée des éclaircissements ou renseignements"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "dossier de l'enchère électronique inversée",
+        "edge": "introduction de modifications"
+    }
+]
+``` 
+
+
+ Voici l'ontologie des termes et les relations entre eux extraites du contexte fourni :
+
+```json
+[
+    {
+        "node_1": "concurrents",
+        "node_2": "dossier",
+        "edge": "téléchargé par"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "portail des marchés publics",
+        "edge": "introduit dans"
+    }
+]
+```
+
+Explications :
+- Les concurrents ont téléchargé le dossier (relation : "téléchargé par").
+- Ces concurrents sont ensuite introduits dans le portail des marchés publics (relation : "introduit dans").
+
+ERROR ### Here is the buggy response:   Voici l'ontologie des termes et les relations entre eux extraites du contexte fourni :
+
+```json
+[
+    {
+        "node_1": "concurrents",
+        "node_2": "dossier",
+        "edge": "téléchargé par"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "portail des marchés publics",
+        "edge": "introduit dans"
+    }
+]
+```
+
+Explications :
+- Les concurrents ont téléchargé le dossier (relation : "téléchargé par").
+- Ces concurrents sont ensuite introduits dans le portail des marchés publics (relation : "introduit dans"). 
+
+
+ ```json
+[
+    {
+        "node_1": "délai initial de publicité de l'avis",
+        "node_2": "date limite de remise des candidatures",
+        "edge": "intervient jusqu'à trois jours avant"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "déposés par voie électronique",
+        "edge": "sont déposés selon les conditions d'utilisation du portail des marchés publics"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "articles 12 et 13 du présent arrêté",
+        "edge": "doivent être conformes aux conditions prévues par"
+    },
+    {
+        "node_1": "pli déposé",
+        "node_2": "date limite de remise des candidatures",
+        "edge": "peut être retiré avant"
+    },
+    {
+        "node_1": "concurrents ayant retiré leurs plis",
+        "node_2": "présenter de nouveaux plis",
+        "edge": "peuvent sous les mêmes conditions régissant le dépôt des plis initiaux"
+    },
+    {
+        "node_1": "commission de l'enchère électronique inversée",
+        "node_2": "article 38 du décret précité n° 2-22-431",
+        "edge": "est composée conformément aux dispositions de"
+    },
+    {
+        "node_1": "enchère électronique inversée",
+        "node_2": "phases",
+        "edge": "se déroule en trois phases : examiner et arrêter la liste des concurrents admis à enchérir, permettre aux concurrents d’enchérir par voie électronique, attribuer le marché"
+    },
+    {
+        "node_1": "première phase",
+        "node_2": "examiner et arrêter la liste des concurrents admis à enchérir",
+        "edge": "consiste à"
+    },
+    {
+        "node_1": "deuxième phase",
+        "node_2": "permettre aux concurrents d’enchérir par voie électronique et de réviser les prix qu’ils proposent à la baisse",
+        "edge": "consiste à"
+    },
+    {
+        "node_1": "troisième phase",
+        "node_2": "attribution du marché et établissement du procès-verbal de l’enchère électronique inversée",
+        "edge": "consiste à"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "délai initial de publicité de l'avis",
+        "node_2": "date limite de remise des candidatures",
+        "edge": "intervient jusqu'à trois jours avant"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "déposés par voie électronique",
+        "edge": "sont déposés selon les conditions d'utilisation du portail des marchés publics"
+    },
+    {
+        "node_1": "plis des concurrents",
+        "node_2": "articles 12 et 13 du présent arrêté",
+        "edge": "doivent être conformes aux conditions prévues par"
+    },
+    {
+        "node_1": "pli déposé",
+        "node_2": "date limite de remise des candidatures",
+        "edge": "peut être retiré avant"
+    },
+    {
+        "node_1": "concurrents ayant retiré leurs plis",
+        "node_2": "présenter de nouveaux plis",
+        "edge": "peuvent sous les mêmes conditions régissant le dépôt des plis initiaux"
+    },
+    {
+        "node_1": "commission de l'enchère électronique inversée",
+        "node_2": "article 38 du décret précité n° 2-22-431",
+        "edge": "est composée conformément aux dispositions de"
+    },
+    {
+        "node_1": "enchère électronique inversée",
+        "node_2": "phases",
+        "edge": "se déroule en trois phases : examiner et arrêter la liste des concurrents admis à enchérir, permettre aux concurrents d’enchérir par voie électronique, attribuer le marché"
+    },
+    {
+        "node_1": "première phase",
+        "node_2": "examiner et arrêter la liste des concurrents admis à enchérir",
+        "edge": "consiste à"
+    },
+    {
+        "node_1": "deuxième phase",
+        "node_2": "permettre aux concurrents d’enchérir par voie électronique et de réviser les prix qu’ils proposent à la baisse",
+        "edge": "consiste à"
+    },
+    {
+        "node_1": "troisième phase",
+        "node_2": "attribution du marché et établissement du procès-verbal de l’enchère électronique inversée",
+        "edge": "consiste à"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "président",
+       "edge": "reporte la séance d’ouverture des plis"
+   },
+   {
+       "node_1": "président",
+       "node_2": "séance d’ouverture des plis",
+       "edge": "reporte selon les mêmes modalités prévues à l’article 17"
+   },
+   {
+       "node_1": "commission de consultation",
+       "node_2": "président",
+       "edge": "reporte la séance d’ouverture des plis en cas de difficultés techniques"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "plis des concurrents",
+       "edge": "examine le contenu"
+   },
+   {
+       "node_1": "président",
+       "node_2": "nouvelle séance",
+       "edge": "tient valablement en cas d’absence de membres obligatoires"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "pièces du dossier administratif et technique",
+       "edge": "examine les pièces"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrents",
+       "edge": "écarte ceux qui n’ont pas présenté les pièces exigées ou ont produit des pièces non conformes"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrents",
+       "edge": "écarte ceux dont les capacités juridiques et techniques sont jugées insuffisantes"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "président",
+       "edge": "reporte la séance d’ouverture des plis"
+   },
+   {
+       "node_1": "président",
+       "node_2": "séance d’ouverture des plis",
+       "edge": "reporte selon les mêmes modalités prévues à l’article 17"
+   },
+   {
+       "node_1": "commission de consultation",
+       "node_2": "président",
+       "edge": "reporte la séance d’ouverture des plis en cas de difficultés techniques"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "plis des concurrents",
+       "edge": "examine le contenu"
+   },
+   {
+       "node_1": "président",
+       "node_2": "nouvelle séance",
+       "edge": "tient valablement en cas d’absence de membres obligatoires"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "pièces du dossier administratif et technique",
+       "edge": "examine les pièces"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrents",
+       "edge": "écarte ceux qui n’ont pas présenté les pièces exigées ou ont produit des pièces non conformes"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrents",
+       "edge": "écarte ceux dont les capacités juridiques et techniques sont jugées insuffisantes"
+   }
+]
+``` 
+
+
+ [
+    {
+        "node_1": "concurrents",
+        "node_2": "capacités juridiques et techniques",
+        "edge": "ont"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "critères",
+        "edge": "ne répondent pas à"
+    },
+    {
+        "node_1": "capacités juridiques et techniques",
+        "node_2": "critères",
+        "edge": "sont évaluées par rapport à"
+    }
+] ```json
+[
+   {
+       "node_1": "les concurrents",
+       "node_2": "la même personne",
+       "edge": "représentés par"
+   },
+   {
+       "node_1": "les concurrents",
+       "node_2": "un marché unique ou un même lot dans un marché alloti",
+       "edge": "représentés dans"
+   },
+   {
+       "node_1": "la commission",
+       "node_2": "liste des concurrents admis à participer",
+       "edge": "arrête"
+   },
+   {
+       "node_1": "la commission",
+       "node_2": "procès-verbal de la réunion relative à la séance d’admission",
+       "edge": "dresse séance tenante"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "les concurrents admis",
+       "edge": "invite à participer à l’enchère électronique inversée"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "informations nécessaires",
+       "edge": "fournit à travers le portail des marchés publics"
+   },
+   {
+       "node_1": "la date de la séance d’admission",
+       "node_2": "la date fixée pour la deuxième phase de l’enchère électronique inversée",
+       "edge": "décalée en cas de report"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "chaque concurrent éliminé",
+       "edge": "indique les motifs de son élimination"
+   },
+   {
+       "node_1": "le portail des marchés publics",
+       "node_2": "garantie de la deuxième phase de l’enchère électronique inversée",
+       "edge": "assure"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "les concurrents",
+       "node_2": "la même personne",
+       "edge": "représentés par"
+   },
+   {
+       "node_1": "les concurrents",
+       "node_2": "un marché unique ou un même lot dans un marché alloti",
+       "edge": "représentés dans"
+   },
+   {
+       "node_1": "la commission",
+       "node_2": "liste des concurrents admis à participer",
+       "edge": "arrête"
+   },
+   {
+       "node_1": "la commission",
+       "node_2": "procès-verbal de la réunion relative à la séance d’admission",
+       "edge": "dresse séance tenante"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "les concurrents admis",
+       "edge": "invite à participer à l’enchère électronique inversée"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "informations nécessaires",
+       "edge": "fournit à travers le portail des marchés publics"
+   },
+   {
+       "node_1": "la date de la séance d’admission",
+       "node_2": "la date fixée pour la deuxième phase de l’enchère électronique inversée",
+       "edge": "décalée en cas de report"
+   },
+   {
+       "node_1": "le maître d’ouvrage",
+       "node_2": "chaque concurrent éliminé",
+       "edge": "indique les motifs de son élimination"
+   },
+   {
+       "node_1": "le portail des marchés publics",
+       "node_2": "garantie de la deuxième phase de l’enchère électronique inversée",
+       "edge": "assure"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "l'anonymat",
+        "node_2": "le concurrent enchérisseur",
+        "edge": "est préservé"
+    },
+    {
+        "node_1": "le nombre des concurrents enchérisseurs",
+        "node_2": "est affiché",
+        "edge": "est rendu visible"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "la dernière offre moins-disante reçue",
+        "edge": "sont comparées par rapport à"
+    },
+    {
+        "node_1": "le maître d’ouvrage",
+        "node_2": "les concurrents enchérisseurs",
+        "edge": "ne communique pas avec"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "les prix proposés par les concurrents",
+        "edge": "peuvent être révisées à la baisse"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "l'ordre croissant",
+        "edge": "sont classées par ordre"
+    },
+    {
+        "node_1": "la commission de l’enchère électronique inversée",
+        "node_2": "le déroulement de la deuxième phase",
+        "edge": "assiste au déroulement de"
+    },
+    {
+        "node_1": "l'enchère électronique inversée",
+        "node_2": "la non-disponibilité du portail des marchés publics",
+        "edge": "est suspendue en cas de difficultés techniques"
+    },
+    {
+        "node_1": "l'enchère électronique inversée",
+        "node_2": "le portail des marchés publics",
+        "edge": "est suspendue conformément aux conditions d’utilisation de"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "l'anonymat",
+        "node_2": "le concurrent enchérisseur",
+        "edge": "est préservé"
+    },
+    {
+        "node_1": "le nombre des concurrents enchérisseurs",
+        "node_2": "est affiché",
+        "edge": "est rendu visible"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "la dernière offre moins-disante reçue",
+        "edge": "sont comparées par rapport à"
+    },
+    {
+        "node_1": "le maître d’ouvrage",
+        "node_2": "les concurrents enchérisseurs",
+        "edge": "ne communique pas avec"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "les prix proposés par les concurrents",
+        "edge": "peuvent être révisées à la baisse"
+    },
+    {
+        "node_1": "les offres",
+        "node_2": "l'ordre croissant",
+        "edge": "sont classées par ordre"
+    },
+    {
+        "node_1": "la commission de l’enchère électronique inversée",
+        "node_2": "le déroulement de la deuxième phase",
+        "edge": "assiste au déroulement de"
+    },
+    {
+        "node_1": "l'enchère électronique inversée",
+        "node_2": "la non-disponibilité du portail des marchés publics",
+        "edge": "est suspendue en cas de difficultés techniques"
+    },
+    {
+        "node_1": "l'enchère électronique inversée",
+        "node_2": "le portail des marchés publics",
+        "edge": "est suspendue conformément aux conditions d’utilisation de"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "président",
+       "node_2": "portail des marchés publics",
+       "edge": "informe via"
+   },
+   {
+       "node_1": "président",
+       "node_2": "concurrents",
+       "edge": "informe"
+   },
+   {
+       "node_1": "président",
+       "node_2": "membres de la commission",
+       "edge": "informe"
+   },
+   {
+       "node_1": "défaillance technique",
+       "node_2": "dispositions des alinéas 4 et 5",
+       "edge": "applique"
+   },
+   {
+       "node_1": "commission de l’enchère",
+       "node_2": "identité d’aucun concurrent enchérisseur",
+       "edge": "ne révèle pas"
+   },
+   {
+       "node_1": "enchère électronique inversée",
+       "node_2": "date et heure de clôture fixées par l’avis",
+       "edge": "est close automatiquement à"
+   },
+   {
+       "node_1": "enchère électronique inversée",
+       "node_2": "temps de prorogation",
+       "edge": "après écoulement de"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrent ayant présenté l’offre la moins-disante",
+       "edge": "invite à fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "portail des marchés publics",
+       "edge": "invite via"
+   },
+   {
+       "node_1": "concurrent ayant présenté l’offre la moins-disante",
+       "node_2": "acte d’engagement",
+       "edge": "doit fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "bordereau des prix -détail estimatif",
+       "edge": "transmet"
+   },
+   {
+       "node_1": "concurrent ayant présenté l’offre la moins-disante",
+       "node_2": "pièces exigées du concurrent auquel il est envisagé d’attribuer le marché",
+       "edge": "doit fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "dispositions de l’article 28 du décret précité n° 2-22-431",
+       "edge": "prévoit"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "président",
+       "node_2": "portail des marchés publics",
+       "edge": "informe via"
+   },
+   {
+       "node_1": "président",
+       "node_2": "concurrents",
+       "edge": "informe"
+   },
+   {
+       "node_1": "président",
+       "node_2": "membres de la commission",
+       "edge": "informe"
+   },
+   {
+       "node_1": "défaillance technique",
+       "node_2": "dispositions des alinéas 4 et 5",
+       "edge": "applique"
+   },
+   {
+       "node_1": "commission de l’enchère",
+       "node_2": "identité d’aucun concurrent enchérisseur",
+       "edge": "ne révèle pas"
+   },
+   {
+       "node_1": "enchère électronique inversée",
+       "node_2": "date et heure de clôture fixées par l’avis",
+       "edge": "est close automatiquement à"
+   },
+   {
+       "node_1": "enchère électronique inversée",
+       "node_2": "temps de prorogation",
+       "edge": "après écoulement de"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "concurrent ayant présenté l’offre la moins-disante",
+       "edge": "invite à fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "portail des marchés publics",
+       "edge": "invite via"
+   },
+   {
+       "node_1": "concurrent ayant présenté l’offre la moins-disante",
+       "node_2": "acte d’engagement",
+       "edge": "doit fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "bordereau des prix -détail estimatif",
+       "edge": "transmet"
+   },
+   {
+       "node_1": "concurrent ayant présenté l’offre la moins-disante",
+       "node_2": "pièces exigées du concurrent auquel il est envisagé d’attribuer le marché",
+       "edge": "doit fournir"
+   },
+   {
+       "node_1": "commission de l’enchère électronique inversée",
+       "node_2": "dispositions de l’article 28 du décret précité n° 2-22-431",
+       "edge": "prévoit"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "article 28",
+        "node_2": "décret n° 2-22-431",
+        "edge": "prévu par"
+    },
+    {
+        "node_1": "échantillons et/ou prototypes",
+        "node_2": "règlement de l’enchère électronique inversée",
+        "edge": "doivent être inclus si le règlement le prévoit"
+    },
+    {
+        "node_1": "commission",
+        "node_2": "discordances dans dossier administratif",
+        "edge": "invite à régulariser"
+    },
+    {
+        "node_1": "pièces de dossier administratif",
+        "node_2": "enveloppe électronique",
+        "edge": "doivent être insérées individuellement dans"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "pièces dématérialisées",
+        "edge": "n'a pas besoin de signer électroniquement"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "marché",
+        "edge": "attribue à l'offre la moins-disante après vérification des pièces"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "procès-verbal",
+        "edge": "dresse à chaque réunion"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "enchère électronique inversée",
+        "edge": "peut déclarer infructueuse en cas de nombre insuffisant de concurrents"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "article 28",
+        "node_2": "décret n° 2-22-431",
+        "edge": "prévu par"
+    },
+    {
+        "node_1": "échantillons et/ou prototypes",
+        "node_2": "règlement de l’enchère électronique inversée",
+        "edge": "doivent être inclus si le règlement le prévoit"
+    },
+    {
+        "node_1": "commission",
+        "node_2": "discordances dans dossier administratif",
+        "edge": "invite à régulariser"
+    },
+    {
+        "node_1": "pièces de dossier administratif",
+        "node_2": "enveloppe électronique",
+        "edge": "doivent être insérées individuellement dans"
+    },
+    {
+        "node_1": "concurrent",
+        "node_2": "pièces dématérialisées",
+        "edge": "n'a pas besoin de signer électroniquement"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "marché",
+        "edge": "attribue à l'offre la moins-disante après vérification des pièces"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "procès-verbal",
+        "edge": "dresse à chaque réunion"
+    },
+    {
+        "node_1": "commission de l’enchère électronique inversée",
+        "node_2": "enchère électronique inversée",
+        "edge": "peut déclarer infructueuse en cas de nombre insuffisant de concurrents"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "nombre minimum des concurrents qui doivent s’inscrire",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    },
+    {
+        "node_1": "nombre minimum des concurrents admis à enchérir",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "nombre minimum des concurrents qui doivent s’inscrire",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    },
+    {
+        "node_1": "nombre minimum des concurrents admis à enchérir",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "nombre minimum des concurrents admis et qui enchérissent",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    },
+    {
+        "node_1": "aucun concurrent",
+        "node_2": "examen des échantillons et/ou prototypes",
+        "edge": "n’a pas été retenu à l’issue de"
+    },
+    {
+        "node_1": "aucune des offres",
+        "node_2": "conditions et critères fixés par le règlement de l’enchère électronique inversée",
+        "edge": "n’est pas jugée acceptable au regard de"
+    },
+    {
+        "node_1": "annulation de la procédure de l’enchère électronique inversée",
+        "node_2": "dispositions de l’article 48 du décret précité n° 2-22-431",
+        "edge": "s’effectue conformément à"
+    },
+    {
+        "node_1": "extrait du procès-verbal de la commission de l’enchère électronique inversée",
+        "node_2": "portail des marchés publics",
+        "edge": "est publié sur"
+    },
+    {
+        "node_1": "marché conclu à l’issue de l’enchère électronique inversée",
+        "node_2": "dossier sous format électronique",
+        "edge": "est basé sur"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "acte d’engagement",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "bordereau des prix-détail estimatif",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "projet de marché signé par les deux parties",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "rapport de présentation du marché établi par le maître d’ouvrage conformément au modèle prévu par l’arrêté du ministre chargé des finances pris pour application de l’article 153 du décret précité n° 2-22-431",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "procès-verbaux de chaque réunion de la commission de l’enchère électronique inversée",
+        "edge": "comprend"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "nombre minimum des concurrents admis et qui enchérissent",
+        "node_2": "nombre fixé par le règlement de l’enchère électronique inversée",
+        "edge": "est inférieur à"
+    },
+    {
+        "node_1": "aucun concurrent",
+        "node_2": "examen des échantillons et/ou prototypes",
+        "edge": "n’a pas été retenu à l’issue de"
+    },
+    {
+        "node_1": "aucune des offres",
+        "node_2": "conditions et critères fixés par le règlement de l’enchère électronique inversée",
+        "edge": "n’est pas jugée acceptable au regard de"
+    },
+    {
+        "node_1": "annulation de la procédure de l’enchère électronique inversée",
+        "node_2": "dispositions de l’article 48 du décret précité n° 2-22-431",
+        "edge": "s’effectue conformément à"
+    },
+    {
+        "node_1": "extrait du procès-verbal de la commission de l’enchère électronique inversée",
+        "node_2": "portail des marchés publics",
+        "edge": "est publié sur"
+    },
+    {
+        "node_1": "marché conclu à l’issue de l’enchère électronique inversée",
+        "node_2": "dossier sous format électronique",
+        "edge": "est basé sur"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "acte d’engagement",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "bordereau des prix-détail estimatif",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "projet de marché signé par les deux parties",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "rapport de présentation du marché établi par le maître d’ouvrage conformément au modèle prévu par l’arrêté du ministre chargé des finances pris pour application de l’article 153 du décret précité n° 2-22-431",
+        "edge": "comprend"
+    },
+    {
+        "node_1": "dossier sous format électronique",
+        "node_2": "procès-verbaux de chaque réunion de la commission de l’enchère électronique inversée",
+        "edge": "comprend"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "procès-verbaux",
+       "node_2": "réunion",
+       "edge": "documentation"
+   },
+   {
+       "node_1": "procès-verbaux",
+       "node_2": "commission de l’enchère électronique inversée",
+       "edge": "produit par"
+   },
+   {
+       "node_1": "marchés",
+       "node_2": "enchère électronique inversée",
+       "edge": "résultat de"
+   },
+   {
+       "node_1": "marchés",
+       "node_2": "articles 142 et 143 du décret n° 2-22-431",
+       "edge": "approuvés conformément à"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis d’achat sur bon de commande",
+       "edge": "publie"
+   },
+   {
+       "node_1": "durée de publication",
+       "node_2": "quarante-huit heures",
+       "edge": "ne doit pas être inférieure à"
+   },
+   {
+       "node_1": "avis d’achat sur bon de commande",
+       "node_2": "modèle prévu par l’arrêté du ministre chargé des finances",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "maître d’ouvrage ou la personne habilitée",
+       "node_2": "certificat administratif",
+       "edge": "établit"
+   },
+   {
+       "node_1": "impossibilité ou incompatibilité de publication",
+       "node_2": "urgence, besoins de sécurité publique, événement indépendant, porteurs de brevets d’invention",
+       "edge": "justifiée par"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "procès-verbaux",
+       "node_2": "réunion",
+       "edge": "documentation"
+   },
+   {
+       "node_1": "procès-verbaux",
+       "node_2": "commission de l’enchère électronique inversée",
+       "edge": "produit par"
+   },
+   {
+       "node_1": "marchés",
+       "node_2": "enchère électronique inversée",
+       "edge": "résultat de"
+   },
+   {
+       "node_1": "marchés",
+       "node_2": "articles 142 et 143 du décret n° 2-22-431",
+       "edge": "approuvés conformément à"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "avis d’achat sur bon de commande",
+       "edge": "publie"
+   },
+   {
+       "node_1": "durée de publication",
+       "node_2": "quarante-huit heures",
+       "edge": "ne doit pas être inférieure à"
+   },
+   {
+       "node_1": "avis d’achat sur bon de commande",
+       "node_2": "modèle prévu par l’arrêté du ministre chargé des finances",
+       "edge": "conforme à"
+   },
+   {
+       "node_1": "maître d’ouvrage ou la personne habilitée",
+       "node_2": "certificat administratif",
+       "edge": "établit"
+   },
+   {
+       "node_1": "impossibilité ou incompatibilité de publication",
+       "node_2": "urgence, besoins de sécurité publique, événement indépendant, porteurs de brevets d’invention",
+       "edge": "justifiée par"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "avis d’achat",
+        "edge": "peut joindre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "document utile",
+        "edge": "peut joindre pour préciser les besoins"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "prix unitaires",
+        "edge": "renseignent"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "devis",
+        "edge": "génèrent selon les conditions d’utilisation du portail des marchés publics"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "signature électronique",
+        "edge": "sont signés"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "portail des marchés publics",
+        "edge": "sont déposés dans"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "registre des bons de commande",
+        "edge": "enregistre les devis dans"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "dénomination ou identité du concurrent",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "adresse du concurrent",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "numéro d’inscription à la taxe professionnelle",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "relevé d’identité bancaire",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "numéro d’affiliation à la caisse nationale de sécurité sociale ou tout autre régime particulier de prévoyance sociale",
+        "edge": "mentionnent, le cas échéant"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "devis reçus",
+        "edge": "procède à l’examen"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "devis reçus",
+        "edge": "classent par ordre croissant selon le montant"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bon de commande",
+        "edge": "attribue au concurrent ayant présenté l’offre la moins-disante conformément à l’article 91 du décret n° 2 -22-431"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent ayant présenté l’offre la moins-disante",
+        "edge": "invite à travers le portail des marchés publics"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "avis d’achat",
+        "edge": "peut joindre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "document utile",
+        "edge": "peut joindre pour préciser les besoins"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "prix unitaires",
+        "edge": "renseignent"
+    },
+    {
+        "node_1": "concurrents",
+        "node_2": "devis",
+        "edge": "génèrent selon les conditions d’utilisation du portail des marchés publics"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "signature électronique",
+        "edge": "sont signés"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "portail des marchés publics",
+        "edge": "sont déposés dans"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "registre des bons de commande",
+        "edge": "enregistre les devis dans"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "dénomination ou identité du concurrent",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "adresse du concurrent",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "numéro d’inscription à la taxe professionnelle",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "relevé d’identité bancaire",
+        "edge": "mentionnent"
+    },
+    {
+        "node_1": "devis",
+        "node_2": "numéro d’affiliation à la caisse nationale de sécurité sociale ou tout autre régime particulier de prévoyance sociale",
+        "edge": "mentionnent, le cas échéant"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "devis reçus",
+        "edge": "procède à l’examen"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "devis reçus",
+        "edge": "classent par ordre croissant selon le montant"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bon de commande",
+        "edge": "attribue au concurrent ayant présenté l’offre la moins-disante conformément à l’article 91 du décret n° 2 -22-431"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent ayant présenté l’offre la moins-disante",
+        "edge": "invite à travers le portail des marchés publics"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent ayant présenté l’offre la moins - disante",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent dont l’offre est classée suivante",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent dont l’offre est classée cinquième",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "procedure d'achat sur bons de commande par voie électronique",
+        "edge": "met fin à"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "portail des marchés publics",
+        "edge": "publie un avis relatif aux résultats de l’examen des devis"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "objet du bon de commande",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "nombre des concurrents qui ont déposé des devis",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "attributaire du bon de commande",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "montant de son offre",
+        "edge": "précise"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "nantissement dudit marché",
+        "edge": "peut procéder à"
+    },
+    {
+        "node_1": "nantissement du marché public",
+        "node_2": "portail des marchés publics",
+        "edge": "s’effectue selon les conditions d’utilisation"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent ayant présenté l’offre la moins - disante",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent dont l’offre est classée suivante",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "concurrent dont l’offre est classée cinquième",
+        "edge": "invite à confirmer son offre"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "procedure d'achat sur bons de commande par voie électronique",
+        "edge": "met fin à"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "portail des marchés publics",
+        "edge": "publie un avis relatif aux résultats de l’examen des devis"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "objet du bon de commande",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "nombre des concurrents qui ont déposé des devis",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "attributaire du bon de commande",
+        "edge": "précise"
+    },
+    {
+        "node_1": "avis",
+        "node_2": "montant de son offre",
+        "edge": "précise"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "nantissement dudit marché",
+        "edge": "peut procéder à"
+    },
+    {
+        "node_1": "nantissement du marché public",
+        "node_2": "portail des marchés publics",
+        "edge": "s’effectue selon les conditions d’utilisation"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "maître d’ouvrage",
+        "edge": "permet"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "titulaire du marché",
+        "edge": "remet une copie du marché"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre un état sommaire des travaux"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre une attestation des droits constatés"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre un état des avances consenties"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "informe de tout acte ou incident susceptible de compromettre la réalisation du marché"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "transmet l’exemplaire unique du marché"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "maître d’ouvrage concerné",
+        "edge": "communique une copie de l’acte de nantissement"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "maître d’ouvrage",
+        "edge": "permet"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "titulaire du marché",
+        "edge": "remet une copie du marché"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre un état sommaire des travaux"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre une attestation des droits constatés"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "délivre un état des avances consenties"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "bénéficiaire du nantissement ou de la subrogation",
+        "edge": "informe de tout acte ou incident susceptible de compromettre la réalisation du marché"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "transmet l’exemplaire unique du marché"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "maître d’ouvrage concerné",
+        "edge": "communique une copie de l’acte de nantissement"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "comptable assignataire",
+        "node_2": "personne chargée du paiement",
+        "edge": "interchangeable"
+    },
+    {
+        "node_1": "convention de subrogation",
+        "node_2": "maître d’ouvrage",
+        "edge": "notifié à"
+    },
+    {
+        "node_1": "convention de subrogation",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "copie transmise à"
+    },
+    {
+        "node_1": "avenant",
+        "node_2": "modifications affectant les conditions de règlement",
+        "edge": "relatif à"
+    },
+    {
+        "node_1": "avenant",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "transmis à"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "maître d’ouvrage",
+        "edge": "demande de communication de l'exemplaire unique du marché"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "état sommaire des travaux, fournitures ou services effectués",
+        "edge": "demande de communication de l'état sommaire"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "attestation des droits constatés",
+        "edge": "demande de communication de l'attestation des droits constatés"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "état des avances consenties et des acomptes mis en paiement au titre du marché nanti",
+        "edge": "demande de communication de l'état des avances et acomptes"
+    },
+    {
+        "node_1": "exemplaire unique du marché",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "accusé de réception par"
+    },
+    {
+        "node_1": "original de l’acte de nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "accusé de réception par"
+    },
+    {
+        "node_1": "nantissement du marché",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "prise en charge par"
+    },
+    {
+        "node_1": "acte de nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "réserves ou motifs de rejet formulés par"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "comptable assignataire",
+        "node_2": "personne chargée du paiement",
+        "edge": "interchangeable"
+    },
+    {
+        "node_1": "convention de subrogation",
+        "node_2": "maître d’ouvrage",
+        "edge": "notifié à"
+    },
+    {
+        "node_1": "convention de subrogation",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "copie transmise à"
+    },
+    {
+        "node_1": "avenant",
+        "node_2": "modifications affectant les conditions de règlement",
+        "edge": "relatif à"
+    },
+    {
+        "node_1": "avenant",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "transmis à"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "maître d’ouvrage",
+        "edge": "demande de communication de l'exemplaire unique du marché"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "état sommaire des travaux, fournitures ou services effectués",
+        "edge": "demande de communication de l'état sommaire"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "attestation des droits constatés",
+        "edge": "demande de communication de l'attestation des droits constatés"
+    },
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "état des avances consenties et des acomptes mis en paiement au titre du marché nanti",
+        "edge": "demande de communication de l'état des avances et acomptes"
+    },
+    {
+        "node_1": "exemplaire unique du marché",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "accusé de réception par"
+    },
+    {
+        "node_1": "original de l’acte de nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "accusé de réception par"
+    },
+    {
+        "node_1": "nantissement du marché",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "prise en charge par"
+    },
+    {
+        "node_1": "acte de nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "réserves ou motifs de rejet formulés par"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "marché",
+        "edge": "reçoit une notification d'oppositions"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "titulaire du marché",
+        "edge": "reçoit des informations sur les oppositions"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "est notifié de toute modification dans la désignation"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "est notifié de toute modification dans la désignation"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "marché objet du nantissement",
+        "edge": "est informé du règlement définitif ou de la résiliation"
+    },
+    {
+        "node_1": "signature électronique des actes relatifs au nantissement",
+        "node_2": "certificat de signature électronique",
+        "edge": "utilise pour s'effectuer"
+    },
+    {
+        "node_1": "transmission et réception des documents relatifs au nantissement",
+        "node_2": "signature électronique",
+        "edge": "s'effectuent après"
+    },
+    {
+        "node_1": "transmission et réception des documents relatifs au nantissement",
+        "node_2": "portail des marchés publics",
+        "edge": "font l'objet d'un horodatage automatique"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "titulaire du marché",
+        "node_2": "marché",
+        "edge": "reçoit une notification d'oppositions"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "titulaire du marché",
+        "edge": "reçoit des informations sur les oppositions"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "est notifié de toute modification dans la désignation"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "comptable assignataire ou personne chargée du paiement",
+        "edge": "est notifié de toute modification dans la désignation"
+    },
+    {
+        "node_1": "bénéficiaire du nantissement",
+        "node_2": "marché objet du nantissement",
+        "edge": "est informé du règlement définitif ou de la résiliation"
+    },
+    {
+        "node_1": "signature électronique des actes relatifs au nantissement",
+        "node_2": "certificat de signature électronique",
+        "edge": "utilise pour s'effectuer"
+    },
+    {
+        "node_1": "transmission et réception des documents relatifs au nantissement",
+        "node_2": "signature électronique",
+        "edge": "s'effectuent après"
+    },
+    {
+        "node_1": "transmission et réception des documents relatifs au nantissement",
+        "node_2": "portail des marchés publics",
+        "edge": "font l'objet d'un horodatage automatique"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "Les informations",
+        "node_2": "les pièces",
+        "edge": "sont constituées de"
+    },
+    {
+        "node_1": "Les informations",
+        "node_2": "les systèmes tiers",
+        "edge": "provenant de"
+    },
+    {
+        "node_1": "Les pièces",
+        "node_2": "les systèmes tiers",
+        "edge": "provenant de"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "le portail des marchés publics",
+        "edge": "peut accéder à"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les données et les documents provenant des systèmes tiers",
+        "edge": "peut consulter sous format électronique"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les informations d’ordre juridique, technique, social et financier des concurrents",
+        "edge": "peut vérifier"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les attestations d’ordre administratif, technique, social et financier des concurrents",
+        "edge": "peut télécharger"
+    },
+    {
+        "node_1": "Les propriétaires des systèmes tiers",
+        "node_2": "le portail des marchés publics",
+        "edge": "peuvent alimenter en informations et/ou en pièces"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "Les informations",
+        "node_2": "les pièces",
+        "edge": "sont constituées de"
+    },
+    {
+        "node_1": "Les informations",
+        "node_2": "les systèmes tiers",
+        "edge": "provenant de"
+    },
+    {
+        "node_1": "Les pièces",
+        "node_2": "les systèmes tiers",
+        "edge": "provenant de"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "le portail des marchés publics",
+        "edge": "peut accéder à"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les données et les documents provenant des systèmes tiers",
+        "edge": "peut consulter sous format électronique"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les informations d’ordre juridique, technique, social et financier des concurrents",
+        "edge": "peut vérifier"
+    },
+    {
+        "node_1": "La commission de consultation",
+        "node_2": "les attestations d’ordre administratif, technique, social et financier des concurrents",
+        "edge": "peut télécharger"
+    },
+    {
+        "node_1": "Les propriétaires des systèmes tiers",
+        "node_2": "le portail des marchés publics",
+        "edge": "peuvent alimenter en informations et/ou en pièces"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "document ou donnée",
+        "node_2": "passation des marchés publics",
+        "edge": "lien avec"
+    },
+    {
+        "node_1": "conventions",
+        "node_2": "traitement des documents et données",
+        "edge": "conclues à cet effet"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "consultation et utilisation des données et documents",
+        "edge": "permet de"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "confidentialité des données et documents",
+        "edge": "assure la"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "accès aux informations",
+        "edge": "limite à"
+    },
+    {
+        "node_1": "intervenant dans le portail des marchés publics",
+        "node_2": "utilisation exclusive des données et documents",
+        "edge": "tenu de veiller à ce que"
+    },
+    {
+        "node_1": "gestionnaire du portail des marchés publics",
+        "node_2": "interopérabilité du portail avec les systèmes tiers",
+        "edge": "assure l'interopérabilité de"
+    },
+    {
+        "node_1": "parties concernées",
+        "node_2": "collaboration pour résoudre les problèmes d'interopérabilité",
+        "edge": "s’engagent à collaborer avec"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "document ou donnée",
+        "node_2": "passation des marchés publics",
+        "edge": "lien avec"
+    },
+    {
+        "node_1": "conventions",
+        "node_2": "traitement des documents et données",
+        "edge": "conclues à cet effet"
+    },
+    {
+        "node_1": "acteurs du portail des marchés publics",
+        "node_2": "consultation et utilisation des données et documents",
+        "edge": "permet de"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "confidentialité des données et documents",
+        "edge": "assure la"
+    },
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "accès aux informations",
+        "edge": "limite à"
+    },
+    {
+        "node_1": "intervenant dans le portail des marchés publics",
+        "node_2": "utilisation exclusive des données et documents",
+        "edge": "tenu de veiller à ce que"
+    },
+    {
+        "node_1": "gestionnaire du portail des marchés publics",
+        "node_2": "interopérabilité du portail avec les systèmes tiers",
+        "edge": "assure l'interopérabilité de"
+    },
+    {
+        "node_1": "parties concernées",
+        "node_2": "collaboration pour résoudre les problèmes d'interopérabilité",
+        "edge": "s’engagent à collaborer avec"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "article 53",
+       "node_2": "format électronique",
+       "edge": "impose l'utilisation de"
+   },
+   {
+       "node_1": "documents et pièces",
+       "node_2": "format électronique",
+       "edge": "doivent être établis, conservés et transmis sous"
+   },
+   {
+       "node_1": "portail des marchés publics",
+       "node_2": "espace dédié au stockage",
+       "edge": "permet de créer"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "documents et pièces",
+       "edge": "peut stocker les"
+   },
+   {
+       "node_1": "concurrent retenu",
+       "node_2": "documents et pièces",
+       "edge": "dépose les"
+   },
+   {
+       "node_1": "article 54",
+       "node_2": "portail des marchés publics",
+       "edge": "permet également de gérer"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "documents et pièces",
+       "edge": "peut gérer les"
+   },
+   {
+       "node_1": "article 55",
+       "node_2": "espace de stockage",
+       "edge": "prévoit que l'accès à l'"
+   },
+   {
+       "node_1": "documents et pièces",
+       "node_2": "signature électronique",
+       "edge": "sont signés par les parties concernées au moyen de"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "article 53",
+       "node_2": "format électronique",
+       "edge": "impose l'utilisation de"
+   },
+   {
+       "node_1": "documents et pièces",
+       "node_2": "format électronique",
+       "edge": "doivent être établis, conservés et transmis sous"
+   },
+   {
+       "node_1": "portail des marchés publics",
+       "node_2": "espace dédié au stockage",
+       "edge": "permet de créer"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "documents et pièces",
+       "edge": "peut stocker les"
+   },
+   {
+       "node_1": "concurrent retenu",
+       "node_2": "documents et pièces",
+       "edge": "dépose les"
+   },
+   {
+       "node_1": "article 54",
+       "node_2": "portail des marchés publics",
+       "edge": "permet également de gérer"
+   },
+   {
+       "node_1": "maître d’ouvrage",
+       "node_2": "documents et pièces",
+       "edge": "peut gérer les"
+   },
+   {
+       "node_1": "article 55",
+       "node_2": "espace de stockage",
+       "edge": "prévoit que l'accès à l'"
+   },
+   {
+       "node_1": "documents et pièces",
+       "node_2": "signature électronique",
+       "edge": "sont signés par les parties concernées au moyen de"
+   }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "signature électronique",
+        "node_2": "documents",
+        "edge": "réalisation par"
+    },
+    {
+        "node_1": "signature électronique",
+        "node_2": "certificat de signature électronique",
+        "edge": "effectuée avec"
+    },
+    {
+        "node_1": "signature électronique des documents",
+        "node_2": "marchés publics",
+        "edge": "applicable à"
+    },
+    {
+        "node_1": "certificat de signature électronique",
+        "node_2": "modalités visées à l’article 6 du présent arrêté",
+        "edge": "conforme à"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "signature électronique",
+        "node_2": "documents",
+        "edge": "réalisation par"
+    },
+    {
+        "node_1": "signature électronique",
+        "node_2": "certificat de signature électronique",
+        "edge": "effectuée avec"
+    },
+    {
+        "node_1": "signature électronique des documents",
+        "node_2": "marchés publics",
+        "edge": "applicable à"
+    },
+    {
+        "node_1": "certificat de signature électronique",
+        "node_2": "modalités visées à l’article 6 du présent arrêté",
+        "edge": "conforme à"
+    }
+]
+``` 
+
+
+ ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "horodatage automatique",
+        "edge": "effectue l'horodatage"
+    },
+    {
+        "node_1": "documents et pièces",
+        "node_2": "portail des marchés publics",
+        "edge": "échangés via"
+    },
+    {
+        "node_1": "date et heure",
+        "node_2": "horodatage automatique",
+        "edge": "mentionnées dans"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "documents et pièces déposés",
+        "edge": "exploite"
+    },
+    {
+        "node_1": "concurrent retenu",
+        "node_2": "phase dématérialisée de passation",
+        "edge": "à l'issue de"
+    },
+    {
+        "node_1": "administration de la défense nationale",
+        "node_2": "présent arrêté",
+        "edge": "n'est pas tenue d'appliquer"
+    },
+    {
+        "node_1": "établissements publics soumis à la tutelle de l’autorité gouvernementale chargée de l’administration de la défense nationale",
+        "node_2": "présent arrêté",
+        "edge": "n'est pas tenue d'appliquer"
+    },
+    {
+        "node_1": "dispositions relatives à la dématérialisation des prestations architecturales",
+        "node_2": "premier juillet 2024",
+        "edge": "entrent en vigueur à compter de"
+    },
+    {
+        "node_1": "dispositions relatives à la dématérialisation du cautionnement définitif, de la retenue de garantie ou des cautions",
+        "node_2": "présent arrêté",
+        "edge": "sont mentionnées dans"
+    }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+    {
+        "node_1": "portail des marchés publics",
+        "node_2": "horodatage automatique",
+        "edge": "effectue l'horodatage"
+    },
+    {
+        "node_1": "documents et pièces",
+        "node_2": "portail des marchés publics",
+        "edge": "échangés via"
+    },
+    {
+        "node_1": "date et heure",
+        "node_2": "horodatage automatique",
+        "edge": "mentionnées dans"
+    },
+    {
+        "node_1": "maître d’ouvrage",
+        "node_2": "documents et pièces déposés",
+        "edge": "exploite"
+    },
+    {
+        "node_1": "concurrent retenu",
+        "node_2": "phase dématérialisée de passation",
+        "edge": "à l'issue de"
+    },
+    {
+        "node_1": "administration de la défense nationale",
+        "node_2": "présent arrêté",
+        "edge": "n'est pas tenue d'appliquer"
+    },
+    {
+        "node_1": "établissements publics soumis à la tutelle de l’autorité gouvernementale chargée de l’administration de la défense nationale",
+        "node_2": "présent arrêté",
+        "edge": "n'est pas tenue d'appliquer"
+    },
+    {
+        "node_1": "dispositions relatives à la dématérialisation des prestations architecturales",
+        "node_2": "premier juillet 2024",
+        "edge": "entrent en vigueur à compter de"
+    },
+    {
+        "node_1": "dispositions relatives à la dématérialisation du cautionnement définitif, de la retenue de garantie ou des cautions",
+        "node_2": "présent arrêté",
+        "edge": "sont mentionnées dans"
+    }
+]
+``` 
+
+
+ ```json
+[
+   {
+       "node_1": "dispositions relatives à la dématérialisation du cautionnement définitif, de la retenue de garantie ou des cautions personnelles et solidaires",
+       "node_2": "premier juillet 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la dématérialisation des documents et pièces",
+       "node_2": "premier juillet 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la dématérialisation du nantissement des marchés publics",
+       "node_2": "premier septembre 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la mise en œuvre de l’interopérabilité avec les systèmes tiers",
+       "node_2": "premier jour du troisième mois suivant la date de signature des conventions visées à l’article 50",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions de l’arrêté n° 1982 -21 du 9 joumada I 1443 (14 décembre 2021)",
+       "node_2": "premier septembre 2023",
+       "edge": "sont abrogées à compter de"
+   }
+]
+```
+
+ERROR ### Here is the buggy response:   ```json
+[
+   {
+       "node_1": "dispositions relatives à la dématérialisation du cautionnement définitif, de la retenue de garantie ou des cautions personnelles et solidaires",
+       "node_2": "premier juillet 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la dématérialisation des documents et pièces",
+       "node_2": "premier juillet 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la dématérialisation du nantissement des marchés publics",
+       "node_2": "premier septembre 2024",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions relatives à la mise en œuvre de l’interopérabilité avec les systèmes tiers",
+       "node_2": "premier jour du troisième mois suivant la date de signature des conventions visées à l’article 50",
+       "edge": "entrent en vigueur à compter de"
+   },
+   {
+       "node_1": "dispositions de l’arrêté n° 1982 -21 du 9 joumada I 1443 (14 décembre 2021)",
+       "node_2": "premier septembre 2023",
+       "edge": "sont abrogées à compter de"
+   }
+] 
